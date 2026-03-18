@@ -1,100 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blackstone Inc. (BX) — Equity Research | The Fedeli Group</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #111;
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 24px;
-}
-.fedeli-brand {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 3px solid #1a1a2e;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-.fedeli-brand .firm { font-size: 20px; font-weight: bold; color: #1a1a2e; letter-spacing: 1.5px; }
-.fedeli-brand .sub  { font-size: 13px; color: #555; text-align: right; }
-
-.header-table { width:100%; font-size:15px; border-collapse:collapse; margin-bottom:32px; }
-.header-table th { background-color:#1a1a2e; color:white; padding:10px 12px; text-align:left; }
-.header-table td { padding:10px 12px; border:1px solid #ccc; }
-
-.data-block { display:flex; gap:32px; margin-bottom:40px; }
-.company-snapshot { flex:0 0 280px; font-size:16px; line-height:1.7; }
-.company-snapshot h2 { font-size:18px; margin-bottom:10px; }
-.right-col { flex:1; min-width:0; }
-
-.price-range-bar { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:0; }
-.price-range-bar th { background-color:#1a1a2e; color:white; padding:6px 8px; text-align:center; }
-.price-range-bar td { padding:6px 8px; text-align:center; border:1px solid #ccc; line-height:1.4; white-space:nowrap; }
-.price-range-bar td.est-cell { color:#7f8fa6; }
-
-.chart-container { width:100%; height:220px; margin-bottom:0; }
-
-.financial-table { width:100%; border-collapse:collapse; font-size:15px; margin-top:0; }
-.financial-table th { background-color:#1a1a2e; color:white; padding:8px 10px; text-align:right; white-space:nowrap; }
-.financial-table th:first-child { text-align:left; }
-.financial-table td { padding:7px 10px; border-bottom:1px solid #e0e0e0; text-align:right; white-space:nowrap; }
-.financial-table td:first-child { text-align:left; font-weight:500; }
-.financial-table tr:nth-child(even) { background-color:#f7f7f7; }
-.est { color:#7f8fa6; }
-
-.tbl-footnotes { font-size:12px; color:#666; margin-top:10px; line-height:1.6; border-top:1px solid #ccc; padding-top:8px; }
-
-.narrative { font-size:17px; line-height:1.85; max-width:960px; border-top:2px solid #1a1a2e; padding-top:24px; }
-.narrative p { margin-bottom:20px; }
-.analyst-sig { font-size:15px; color:#555; margin-top:24px; font-style:italic; }
-
-.rating-buy { color:#fff; background:#1a6e2e; padding:2px 8px; border-radius:3px; font-weight:bold; font-size:15px; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BX — Blackstone Inc. | The Fedeli Group Equity Research</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #111;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .fedeli-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 14px;
+      border-bottom: 3px solid #1a1a2e;
+      padding-bottom: 8px;
+    }
+    .fedeli-header h1 { font-size: 19px; margin: 0; color: #1a1a2e; letter-spacing: 0.3px; }
+    .fedeli-header span { font-size: 13px; color: #666; font-style: italic; }
+    .header-table {
+      width: 100%;
+      font-size: 15px;
+      border-collapse: collapse;
+      margin-bottom: 28px;
+    }
+    .header-table th {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 10px 12px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .header-table td {
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      vertical-align: top;
+    }
+    .data-block {
+      display: flex;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+    .company-snapshot {
+      flex: 0 0 272px;
+      font-size: 15.5px;
+      line-height: 1.72;
+    }
+    .company-snapshot h2 {
+      font-size: 17px;
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #1a1a2e;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 6px;
+    }
+    .right-column { flex: 1; min-width: 0; }
+    .financial-table-wrap { overflow-x: auto; }
+    .financial-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+    }
+    .financial-table th {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 8px 9px;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .financial-table th:first-child { text-align: left; }
+    .financial-table td {
+      padding: 6px 9px;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .financial-table td:first-child { text-align: left; font-weight: 500; }
+    .financial-table tr:nth-child(even) { background-color: #f7f7f7; }
+    .narrative {
+      font-size: 17px;
+      line-height: 1.85;
+      max-width: 960px;
+      border-top: 2px solid #1a1a2e;
+      padding-top: 24px;
+    }
+    .narrative p { margin-bottom: 20px; }
+    .analyst-sig { font-size: 15px; color: #555; margin-top: 24px; font-style: italic; }
+    .price-range-bar {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 0;
+    }
+    .price-range-bar th {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 6px 8px;
+      text-align: center;
+    }
+    .price-range-bar td {
+      padding: 6px 8px;
+      text-align: center;
+      border: 1px solid #ccc;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+    .chart-container { width: 100%; height: 220px; margin-bottom: 0; }
+    .table-note {
+      font-size: 12px;
+      color: #666;
+      margin-top: 6px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .rating-pill {
+      display: inline-block;
+      background: #1a1a2e;
+      color: white;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 2px 10px;
+      border-radius: 3px;
+      margin-right: 6px;
+      letter-spacing: 0.5px;
+    }
+    .snap-meta { font-size: 14px; margin-top: 14px; line-height: 1.8; color: #333; }
+  </style>
 </head>
 <body>
 
 <!-- BRANDING -->
-<div class="fedeli-brand">
-  <div class="firm">THE FEDELI GROUP</div>
-  <div class="sub">Equity Research &nbsp;|&nbsp; Alternative Asset Managers<br>March 17, 2026</div>
+<div class="fedeli-header">
+  <h1>The Fedeli Group — Equity Research</h1>
+  <span>Alternative Assets | Institutional Coverage</span>
 </div>
 
-<!-- SECTION 1: HEADER -->
+<!-- SECTION 1: HEADER TABLE -->
 <table class="header-table">
   <thead>
     <tr>
-      <th>Company &amp; Ticker</th>
+      <th>Company & Ticker</th>
       <th>Recent Price</th>
-      <th>Trailing P/E</th>
-      <th>Forward P/E</th>
-      <th>Dividend Yield</th>
+      <th>Trailing P/E&nbsp;†</th>
+      <th>Forward P/E&nbsp;(E)</th>
+      <th>Dist. Yield</th>
       <th>Market Cap</th>
       <th>Beta</th>
-      <th>Timeliness (1–5)</th>
-      <th>Safety (1–5)</th>
-      <th>Financial Strength</th>
+      <th>Timeliness</th>
+      <th>Safety</th>
+      <th>Fin. Strength</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>Blackstone Inc. (BX)</strong></td>
-      <td><strong>$107.00</strong></td>
-      <td>27.6x</td>
-      <td>23.8x (E)</td>
-      <td>5.6%</td>
-      <td>~$99B</td>
-      <td>1.62</td>
-      <td><strong>2</strong></td>
-      <td><strong>3</strong></td>
-      <td><strong>A+</strong></td>
+      <td><strong>$141.50</strong></td>
+      <td>30.0x</td>
+      <td>24.4x</td>
+      <td>3.0%</td>
+      <td>$167B</td>
+      <td>1.58</td>
+      <td>3 (Average)</td>
+      <td>3 (Average)</td>
+      <td>A+</td>
+    </tr>
+    <tr>
+      <td colspan="3" style="background:#fff; border:1px solid #ccc;">
+        EV / DE (TTM)&nbsp;†<br><strong>26.5x</strong>
+      </td>
+      <td colspan="3" style="background:#fff; border:1px solid #ccc;">
+        EV / DE +1 Yr (E)<br><strong>24.0x</strong>
+      </td>
+      <td colspan="2" style="background:#fff; border:1px solid #ccc;">
+        EV / DE +2 Yr (E)<br><strong>21.5x</strong>
+      </td>
+      <td colspan="2" style="background:#fff; border:1px solid #ccc;">
+        PEG Ratio<br><strong>1.4x</strong>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -102,262 +191,170 @@ body {
 <!-- SECTION 2: DATA BLOCK -->
 <div class="data-block">
 
-  <!-- LEFT: Snapshot -->
+  <!-- LEFT: Company Snapshot -->
   <div class="company-snapshot">
     <h2>Company Snapshot</h2>
-    <p>Blackstone Inc. is the world's largest alternative asset manager, overseeing $1.275 trillion in AUM across four segments: Real Estate ($319B), Private Equity / Infrastructure ($416B), Credit &amp; Insurance ($354B), and Multi-Asset Investing ($186B). The firm's structural moat is its brand and scale — in private markets, size creates access to deal flow, LP relationships, and co-investment networks that smaller competitors cannot replicate, making Blackstone the default "reference firm" in alternatives. Revenue quality is bifurcated: fee-related earnings (FRE, now $5.7B annually) are durable and growing at high-single-digit rates; performance revenues are cyclical and have just re-accelerated after a two-year realization drought. The most critical risk is not macro — it is the private wealth channel, where BCRED redemption pressure (~$3.7B in recent outflows) has rattled confidence in Blackstone's retail LP expansion strategy, the thesis underpinning its next decade of AUM growth. At $107 (~19x FY2025 distributable earnings of $5.57), the stock trades at a historic valuation discount, implying a level of structural damage the operating fundamentals simply do not support.</p>
-    <p><strong>HQ:</strong> New York, NY<br>
-    <strong>CEO:</strong> Stephen A. Schwarzman<br>
-    <strong>President/COO:</strong> Jonathan D. Gray<br>
-    <strong>Ticker:</strong> NYSE: BX<br>
-    <strong>Website:</strong> blackstone.com</p>
+    <p>Blackstone Inc. (BX) is the world's largest alternative asset manager, overseeing approximately $1.1 trillion in total AUM across four segments: Real Estate, Private Equity, Credit &amp; Insurance, and Multi-Asset Investing. Real Estate remains the flagship segment anchored by institutional drawdown funds and perpetual vehicles including BREIT (Blackstone Real Estate Income Trust), while Credit &amp; Insurance has emerged as the fastest-growing segment, driven by deep penetration of insurance company general accounts through structures such as BXPE. Revenue is generated through management fees (stable, AUM-driven) and performance revenues (episodic, realization-dependent), with the firm deliberately shifting mix toward the former via perpetual capital expansion. Competitive advantages include unrivaled deal sourcing, proprietary data infrastructure spanning 250+ portfolio companies, and institutional distribution depth that creates a network effect nearly impossible to replicate at scale. Primary risks are real estate NAV sensitivity (BREIT faced redemption pressure in 2022–2023), realization market dependency for carry earnings, and growing regulatory scrutiny of private credit fee structures. At roughly 30x trailing distributable earnings, BX trades at a premium to traditional asset managers but a modest discount to its own five-year average, reflecting lingering market caution on alternatives post-rate shock.</p>
+    <div class="snap-meta">
+      <strong>HQ:</strong> New York, NY<br>
+      <strong>Chairman &amp; CEO:</strong> Stephen A. Schwarzman<br>
+      <strong>President &amp; COO:</strong> Jonathan Gray<br>
+      <strong>Ticker:</strong> BX (NYSE)<br>
+      <strong>Website:</strong> blackstone.com
+    </div>
   </div>
 
-  <!-- RIGHT -->
-  <div class="right-col">
+  <!-- RIGHT COLUMN -->
+  <div class="right-column">
 
-    <!-- PRICE RANGE BAR -->
+    <!-- Annual Price Range Bar -->
     <table class="price-range-bar">
       <thead>
         <tr>
-          <th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>FY2026 (E)</th><th>FY2027 (E)</th>
+          <th>2021</th><th>2022</th><th>2023</th><th>2024</th>
+          <th>2025</th><th>2026 (E)</th><th>2027 (E)</th><th>'28–'30 (E)</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>H: $132.75<br>L: $57.03</td>
-          <td>H: $133.43<br>L: $78.56</td>
-          <td>H: $136.07<br>L: $83.57</td>
-          <td>H: $200.96<br>L: $99.55</td>
-          <td>H: $191.92<br>L: $143.22</td>
-          <td class="est-cell">H: $125.00<br>L: $95.00</td>
-          <td class="est-cell">H: $160.00<br>L: $115.00</td>
+          <td>H: $149.78<br>L: $62.10</td>
+          <td>H: $149.38<br>L: $78.37</td>
+          <td>H: $122.04<br>L: $81.73</td>
+          <td>H: $175.43<br>L: $108.93</td>
+          <td>H: $167.25<br>L: $113.20</td>
+          <td>H: $162 (E)<br>L: $128 (E)</td>
+          <td>H: $180 (E)<br>L: $142 (E)</td>
+          <td>—</td>
         </tr>
       </tbody>
     </table>
 
-    <!-- CHART -->
+    <!-- Dual-Axis Chart -->
     <div class="chart-container">
       <canvas id="bxChart"></canvas>
     </div>
 
-    <!-- FINANCIAL TABLE -->
-    <table class="financial-table">
-      <thead>
-        <tr>
-          <th>Metric</th>
-          <th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th>
-          <th>FY2026 (E)</th><th>FY2027 (E)</th><th>'27–'29 (E)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Revenues per Share</td>
-          <td>$32.37</td><td>$9.92</td><td>$13.73</td><td>$17.53</td><td>$19.47</td>
-          <td class="est">$22.35</td><td class="est">$25.40</td><td class="est">$28–$32</td>
-        </tr>
-        <tr>
-          <td>"Cash Flow" per Share ¹</td>
-          <td>$3.10</td><td>$3.20</td><td>$3.50</td><td>$4.21</td><td>$4.47</td>
-          <td class="est">$5.00</td><td class="est">$5.75</td><td class="est">$6.50–$8.00</td>
-        </tr>
-        <tr>
-          <td>Earnings per Share ²</td>
-          <td>$4.30</td><td>$2.36</td><td>$1.84</td><td>$3.62</td><td>$3.87</td>
-          <td class="est">$4.50</td><td class="est">$5.25</td><td class="est">$6.00–$8.00</td>
-        </tr>
-        <tr>
-          <td>Dist. Decl'd per Share</td>
-          <td>$6.15</td><td>$2.78</td><td>$2.80</td><td>$3.95</td><td>$4.73</td>
-          <td class="est">$4.25</td><td class="est">$5.00</td><td class="est">—</td>
-        </tr>
-        <tr>
-          <td>Cap'l Spending per Share</td>
-          <td>$0.12</td><td>$0.13</td><td>$0.14</td><td>$0.16</td><td>$0.17</td>
-          <td class="est">$0.18</td><td class="est">$0.20</td><td class="est">—</td>
-        </tr>
-        <tr>
-          <td>Book Value per Share ³</td>
-          <td>$12.85</td><td>$10.68</td><td>$11.43</td><td>$12.82</td><td>$14.51</td>
-          <td class="est">$16.00</td><td class="est">$18.50</td><td class="est">$22–$26</td>
-        </tr>
-        <tr>
-          <td>Shares/Units Outstanding (M)</td>
-          <td>697</td><td>706</td><td>714</td><td>722</td><td>730</td>
-          <td class="est">737</td><td class="est">743</td><td class="est">~750</td>
-        </tr>
-        <tr>
-          <td>Avg Ann'l P/E Ratio ²</td>
-          <td>22.6x</td><td>44.5x</td><td>57.1x</td><td>42.8x</td><td>42.6x</td>
-          <td class="est">23.8x</td><td class="est">22.0x</td><td class="est">18–22x</td>
-        </tr>
-        <tr>
-          <td>Relative P/E Ratio</td>
-          <td>0.84</td><td>2.62</td><td>2.60</td><td>1.59</td><td>1.70</td>
-          <td class="est">0.95</td><td class="est">0.90</td><td class="est">0.85–1.00</td>
-        </tr>
-        <tr>
-          <td>Avg Ann'l Dist. Yield</td>
-          <td>6.3%</td><td>2.6%</td><td>2.5%</td><td>2.6%</td><td>2.9%</td>
-          <td class="est">4.2%</td><td class="est">4.8%</td><td class="est">5%+</td>
-        </tr>
-        <tr>
-          <td>Revenues ($mill)</td>
-          <td>$22,564</td><td>$7,000</td><td>$9,800</td><td>$12,660</td><td>$14,210</td>
-          <td class="est">$16,500</td><td class="est">$18,500</td><td class="est">$20–$23B</td>
-        </tr>
-        <tr>
-          <td>Operating Margin (%) ¹</td>
-          <td>58%</td><td>62%</td><td>65%</td><td>68%</td><td>71%</td>
-          <td class="est">72%</td><td class="est">73%</td><td class="est">73–76%</td>
-        </tr>
-        <tr>
-          <td>Depreciation ($mill)</td>
-          <td>$121</td><td>$135</td><td>$148</td><td>$161</td><td>$175</td>
-          <td class="est">$186</td><td class="est">$196</td><td class="est">—</td>
-        </tr>
-        <tr>
-          <td>Net Profit ($mill) ²</td>
-          <td>$2,997</td><td>$1,391</td><td>$1,748</td><td>$2,777</td><td>$3,020</td>
-          <td class="est">$3,320</td><td class="est">$3,900</td><td class="est">$4.5–$5.5B</td>
-        </tr>
-        <tr>
-          <td>Income Tax Rate (%)</td>
-          <td>1.8%</td><td>2.0%</td><td>2.2%</td><td>2.1%</td><td>2.0%</td>
-          <td class="est">2.0%</td><td class="est">2.0%</td><td class="est">~2%</td>
-        </tr>
-        <tr>
-          <td>Net Profit Margin (%) ²</td>
-          <td>13.3%</td><td>19.9%</td><td>17.8%</td><td>21.9%</td><td>21.2%</td>
-          <td class="est">20.1%</td><td class="est">21.1%</td><td class="est">22–25%</td>
-        </tr>
-        <tr>
-          <td>Working Cap'l ($mill)</td>
-          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-          <td class="est">—</td><td class="est">—</td><td class="est">—</td>
-        </tr>
-        <tr>
-          <td>Long-Term Debt ($mill)</td>
-          <td>$7,600</td><td>$8,200</td><td>$9,100</td><td>$9,800</td><td>$9,800</td>
-          <td class="est">$10,200</td><td class="est">$10,500</td><td class="est">—</td>
-        </tr>
-        <tr>
-          <td>Partners'/Shareholders' Capital ($mill)</td>
-          <td>$8,950</td><td>$7,545</td><td>$8,160</td><td>$9,255</td><td>$10,600</td>
-          <td class="est">$11,800</td><td class="est">$13,750</td><td class="est">—</td>
-        </tr>
-        <tr>
-          <td>Return on Total Cap'l (%)</td>
-          <td>18.3%</td><td>10.2%</td><td>7.4%</td><td>14.5%</td><td>15.3%</td>
-          <td class="est">15.8%</td><td class="est">17.2%</td><td class="est">18–20%</td>
-        </tr>
-        <tr>
-          <td>Return on Partners' Cap'l (%)</td>
-          <td>33.5%</td><td>22.1%</td><td>16.1%</td><td>30.0%</td><td>28.5%</td>
-          <td class="est">28.1%</td><td class="est">28.4%</td><td class="est">28–32%</td>
-        </tr>
-        <tr>
-          <td>Retained to Partners' Cap'l (%)</td>
-          <td>–23.6%</td><td>–6.5%</td><td>–5.6%</td><td>–1.8%</td><td>–8.2%</td>
-          <td class="est">–5.7%</td><td class="est">–3.4%</td><td class="est">—</td>
-        </tr>
-        <tr>
-          <td>All Dist. to Net Profit (%)</td>
-          <td>143%</td><td>141%</td><td>114%</td><td>103%</td><td>114%</td>
-          <td class="est">94%</td><td class="est">95%</td><td class="est">—</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="tbl-footnotes">
-      <strong>¹ "Cash Flow" / Operating Margin:</strong> "Cash Flow" per Share = FRE (Fee-Related Earnings) per common share — the recurring, fee-driven earnings stream insulated from realization cycles. Operating Margin = FRE as a % of total management &amp; fee-related performance revenues; expanded to a record 71% in FY2025.<br>
-      <strong>² GAAP Basis Note:</strong> EPS, P/E, Net Profit, and Net Profit Margin reflect GAAP net income attributable to Blackstone Inc. common stockholders. Investors should focus primarily on <strong>Distributable Earnings (DE) per unit</strong>, which represent cash available to all economic unit holders: FY2025 DE = <strong>$5.57</strong> | FY2024 DE ≈ <strong>$4.64</strong> | FY2023 DE ≈ <strong>$3.28</strong>. At $107, <strong>P/DE = 19.2x</strong> — a multi-year historic low vs. the 2022–2024 average of ~31x. GAAP revenues are distorted year-to-year by unrealized mark-to-market swings in portfolio fair values (most visible in the FY2021 revenue spike and FY2022 compression).<br>
-      <strong>³ Book Value:</strong> Reflects GAAP shareholders' equity attributable to BX common stockholders per share. Book value is not a meaningful valuation anchor for an asset-light manager; AUM scale, FRE growth, and realization pipeline are the relevant intrinsic value drivers.
+    <!-- Financial Table -->
+    <div class="financial-table-wrap">
+      <table class="financial-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>2021</th><th>2022</th><th>2023</th><th>2024</th>
+            <th>2025</th><th>2026 (E)</th><th>2027 (E)</th><th>'28–'30 (E)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Revenues per Share</td><td>$9.39</td><td>$2.10</td><td>$3.29</td><td>$5.53</td><td>$6.69</td><td>$7.70</td><td>$9.09</td><td>~$12.50</td></tr>
+          <tr><td>"Cash Flow" per Share †</td><td>$5.89</td><td>$3.54</td><td>$3.60</td><td>$4.71</td><td>$5.20</td><td>$5.80</td><td>$6.50</td><td>~$9.00</td></tr>
+          <tr><td>Earnings per Share (GAAP)</td><td>$7.42</td><td>$(0.81)</td><td>$1.64</td><td>$3.19</td><td>$3.60</td><td>$4.10</td><td>$4.75</td><td>~$7.00</td></tr>
+          <tr><td>Dist. Decl'd per Share</td><td>$4.95</td><td>$3.18</td><td>$3.17</td><td>$3.86</td><td>$4.26</td><td>$4.76</td><td>$5.33</td><td>~$6.56</td></tr>
+          <tr><td>Cap'l Spending per Share</td><td>$0.11</td><td>$0.12</td><td>$0.13</td><td>$0.14</td><td>$0.15</td><td>$0.16</td><td>$0.17</td><td>~$0.22</td></tr>
+          <tr><td>Book Value per Share</td><td>$9.54</td><td>$8.19</td><td>$9.82</td><td>$11.48</td><td>$13.02</td><td>$14.51</td><td>$16.15</td><td>~$22.50</td></tr>
+          <tr><td>Shares/Units Outstanding (M)</td><td>1,355</td><td>1,379</td><td>1,397</td><td>1,413</td><td>1,422</td><td>1,430</td><td>1,438</td><td>~1,450</td></tr>
+          <tr><td>Avg Ann'l P/E Ratio †</td><td>18.0</td><td>32.0</td><td>27.8</td><td>29.7</td><td>27.3</td><td>24.4</td><td>21.7</td><td>~19.0</td></tr>
+          <tr><td>Relative P/E Ratio</td><td>0.67</td><td>1.45</td><td>1.16</td><td>1.14</td><td>1.09</td><td>1.02</td><td>0.99</td><td>~0.91</td></tr>
+          <tr><td>Avg Ann'l Dist. Yield</td><td>4.7%</td><td>2.8%</td><td>3.2%</td><td>2.8%</td><td>3.0%</td><td>3.2%</td><td>3.3%</td><td>~3.8%</td></tr>
+          <tr><td>Revenues ($mill)</td><td>$12,718</td><td>$2,897</td><td>$4,596</td><td>$7,807</td><td>$9,513</td><td>$11,011</td><td>$13,071</td><td>~$18,000</td></tr>
+          <tr><td>Operating Margin (%) ‡</td><td>53%</td><td>55%</td><td>56%</td><td>57%</td><td>58%</td><td>59%</td><td>60%</td><td>~62%</td></tr>
+          <tr><td>Depreciation ($mill)</td><td>$178</td><td>$182</td><td>$187</td><td>$193</td><td>$200</td><td>$208</td><td>$215</td><td>~$255</td></tr>
+          <tr><td>Net Profit ($mill) †</td><td>$7,980</td><td>$4,882</td><td>$5,028</td><td>$6,655</td><td>$7,394</td><td>$8,294</td><td>$9,347</td><td>~$11,600</td></tr>
+          <tr><td>Income Tax Rate (%)</td><td>8%</td><td>10%</td><td>9%</td><td>10%</td><td>10%</td><td>10%</td><td>10%</td><td>~10%</td></tr>
+          <tr><td>Net Profit Margin (%)</td><td>63%</td><td>N/M</td><td>50%</td><td>58%</td><td>55%</td><td>55%</td><td>55%</td><td>~64%</td></tr>
+          <tr><td>Working Cap'l ($mill)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Long-Term Debt ($mill)</td><td>$7,463</td><td>$8,181</td><td>$8,847</td><td>$9,395</td><td>$9,800</td><td>$10,200</td><td>$10,600</td><td>~$12,000</td></tr>
+          <tr><td>Partners' / Shdrs' Capital ($mill)</td><td>$12,927</td><td>$11,298</td><td>$13,718</td><td>$16,218</td><td>$18,514</td><td>$20,752</td><td>$23,228</td><td>~$32,000</td></tr>
+          <tr><td>Return on Total Cap'l (%)</td><td>39%</td><td>24%</td><td>24%</td><td>29%</td><td>30%</td><td>31%</td><td>32%</td><td>~35%</td></tr>
+          <tr><td>Return on Partners' Cap'l (%)</td><td>62%</td><td>43%</td><td>37%</td><td>41%</td><td>40%</td><td>40%</td><td>40%</td><td>~40%</td></tr>
+          <tr><td>Retained to Partners' Cap'l (%)</td><td>10%</td><td>4%</td><td>4%</td><td>7%</td><td>6%</td><td>6%</td><td>6%</td><td>~7%</td></tr>
+          <tr><td>All Dist. to Net Profit (%)</td><td>84%</td><td>90%</td><td>88%</td><td>82%</td><td>82%</td><td>82%</td><td>82%</td><td>~82%</td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">† "Cash Flow" per Share, Net Profit ($mill), and P/E ratios are based on Distributable Earnings (DE) per unit — Blackstone's primary non-GAAP performance metric — not GAAP net income, which is highly distorted by mark-to-market performance allocations (see 2022 GAAP EPS of $(0.81) vs. DE/unit of $3.54). EV/DE replaces EV/EBITDA as the standard valuation metric for alternative asset managers. ‡ Operating Margin represents Fee-Related Earnings (FRE) margin, the most stable and analytically relevant profitability measure. GAAP revenue swings (e.g., $12.7B in 2021 vs. $2.9B in 2022) reflect the accounting treatment of unrealized performance allocations and should not be interpreted as underlying business volatility. 2026–2027 and '28–'30 figures are analyst estimates (E).</p>
     </div>
-  </div>
-</div>
+
+  </div><!-- end right-column -->
+</div><!-- end data-block -->
 
 <!-- SECTION 3: NARRATIVE -->
 <div class="narrative">
 
-  <p><strong>The headline risk is not the story.</strong> Full-year 2025 was the strongest in Blackstone's 40-year history by almost every operating metric: AUM reached $1.275 trillion (up 13%), distributable earnings grew 20% to $5.57 per unit, management fees crossed $8 billion (up 12%), FRE margins hit an all-time record, and net realizations surged 50% to $2.1 billion. Q4 2025 was the exclamation point — $71 billion of inflows (the highest quarterly figure in three-and-a-half years), DE of $1.75 per unit (14% ahead of the $1.53 consensus), and infrastructure appreciating 24% for the full year. Yet the stock sits at $107, down 47% from its November 2024 all-time high of $200.96. The disconnect is explained almost entirely by one word: BCRED. Blackstone's flagship private credit vehicle has experienced roughly $3.7 billion in net outflows in recent months, triggering a market narrative that the private wealth channel — the firm's primary growth engine since 2020 — is in structural retreat. This framing overstates the risk. The more accurate read is that BCRED is experiencing a redemption squeeze that is cyclical (retail investors spooked by rate volatility and private credit headlines amplified by JPMorgan's decision to restrict lending to some private credit providers), not a repudiation of the underlying thesis. Critically, the quality of BX's earnings is actually improving beneath the noise: FRE — recurring, management-fee-driven, nearly all-weather — now represents a larger share of total DE than at any point in the firm's public history. Q4 2025 FRE of $1.5 billion marked a $1.25/unit contribution that is structurally durable regardless of what M&amp;A markets or retail LP sentiment does in any given quarter. The market is pricing a structural impairment; the financials reflect a cyclical headwind on the least durable earnings component.</p>
+  <p>Blackstone's fiscal 2024 represented a genuine inflection from the 2022–2023 earnings trough — distributable earnings per unit recovered to $4.71, a 31% increase over 2023 and the strongest result since 2021's extraordinary realization year — but the headline DE growth figure is actually the least interesting part of the story. What matters analytically is the composition: Fee-Related Earnings, the stable management-fee-driven component contractually linked to AUM rather than exit markets, expanded to an estimated $3.20/unit as total AUM crossed $1.1 trillion, while performance revenue (carry) rebounded sharply in the second half as private credit spreads normalized and select PE exit windows reopened. FRE carries materially higher earnings quality than carry — low capital intensity, insulated from quarterly market swings, and essentially perpetual in duration once embedded in long-dated insurance and institutional mandates — and its growing share of total DE is the single most important structural signal of the last three years. The most underappreciated element of the 2024 print was the continued scaling of insurance-sourced AUM: Blackstone now manages approximately $200 billion in insurance company general accounts, providing stable, long-duration management fees that function more like an annuity business than a traditional alternative fund. The $1.1 trillion AUM milestone is symbolically useful but analytically secondary to the mix shift toward perpetual capital (BREIT, BCRED, BXPE), which is measurably compressing the volatility band of the earnings stream and should command a structurally higher multiple over time as the market recognizes the change.</p>
 
-  <p>Looking ahead, three catalysts determine whether this discount resolves or persists. First, AI and digital infrastructure is the most powerful secular tailwind Blackstone has ever identified. Infrastructure AUM grew 18% in FY2025 to $416 billion, with the commingled infrastructure flagship delivering 18% net returns since inception — returns that will continue attracting institutional capital at scale irrespective of near-term macro conditions. Blackstone's reported discussions with Anthropic and other AI companies about a joint venture to embed AI across portfolio companies represent the next evolution: this isn't a passive infrastructure bet but an active operating-value thesis that, if executed, creates a differentiated source of alpha for PE funds. Second, the private wealth channel trajectory is the swing factor. The 53% growth in private wealth fundraising in 2025 (to $43 billion) was the firm's fastest rate ever — and Blackstone is estimated to hold roughly 50% revenue share among major alt firms in the retail channel, a compounding dominance that survives temporary redemption pressure. In Q4 2025, BCRED gross sales reached $3.3 billion against net inflows of $1.2 billion, suggesting the bleeding is controlled; the key leading indicator is whether gross sales sustain above $3 billion per quarter as rate expectations stabilize. Third, the M&amp;A and IPO realization cycle is beginning to reopen. Management cited "early signs of capital markets reopening" on the Q4 call, and the $200 billion dry powder war chest means Blackstone is optimally positioned to deploy capital at scale into the next vintage. The risk register is real but manageable: a prolonged private credit stress cycle (JPMorgan's lending restrictions signal institutional unease), rate sensitivity in the core-plus real estate book (75% concentrated in data centers, logistics, and rental housing — actually a pro, not a con), and the ever-present risk that the "alternatives premium" embedded in BX's multiple erodes if public market alternatives (interval funds, BDCs) become commoditized at lower fee rates.</p>
+  <p>The two most important drivers for the next 12–24 months are realization cycle reopening and continued perpetual capital inflows, and they are partially independent variables — one of the more favorable structural features of the current setup that consensus tends to underweight. On realizations: PE and real estate exit activity was severely suppressed during 2022–2023 as rising discount rates compressed valuations and froze IPO and M&amp;A channels; with rates stabilizing and credit conditions normalizing, the inventory of BX portfolio companies and real estate assets ripe for monetization is substantial, and a single strong realization quarter can add $0.50–$1.00/unit to DE in a way the market habitually discounts because it treats carry as unforecastable noise rather than deferred earnings on appreciated assets. On perpetual capital: BREIT has largely stabilized post-redemption crisis, and institutional and retail appetite for private credit and real assets remains structurally robust; the deeper question is whether the mass-affluent retail channel — accessed via 1940-Act-registered perpetual vehicles — continues expanding, which would effectively multiply Blackstone's addressable AUM universe by a factor of three to four over the next decade, a scenario almost certainly not priced at current multiples. The principal risks to the base case are three: first, real estate valuations remain exposed to rate re-acceleration or regional deterioration in office and select retail, and a second wave of BREIT redemption pressure would be a significant sentiment overhang even if fundamentally manageable at the GP level; second, the private credit cycle risk — while overstated in the "bubble" framing — is real enough that a high-profile direct-lending default could trigger sector-wide multiple compression regardless of BX's specific credit quality; and third, key-person concentration in the Schwarzman/Gray partnership remains a structural risk that succession planning is addressing but cannot fully mitigate given that BX's deal sourcing network is personality-dependent in ways that are difficult to institutionalize.</p>
 
-  <p>BX is rated <span class="rating-buy">BUY</span> with a 12-month price target of <strong>$145</strong>, implying 36% upside from current levels and a 5.6% forward yield in the interim. The target is derived by applying <strong>26x to FY2026E DE of approximately $6.00–$6.10 per unit</strong> — a modest premium to historical P/DE trough multiples (~22x in 2019–2020) and a meaningful discount to the 30–35x range BX commanded during its 2021–2024 re-rating. A simple way to frame the current valuation: at $107, you are paying less than 20x the fee-driven earnings of the world's largest, highest-margin alternative manager with a 13% AUM CAGR and a 5.6% yield. The IRR math on that entry is compelling even in a flat-multiple scenario. A full reversion to 28x FY2027E DE of ~$6.75 implies a two-year price of ~$189 — the base case if the private credit fear narrative resolves. The single condition that would cause a downgrade: sustained acceleration of combined BCRED and BREIT net redemptions exceeding $5 billion per quarter for two consecutive quarters, signaling that the retail LP base is becoming a structurally unreliable funding source — the central assumption underpinning Blackstone's next decade of AUM compounding. Until that signal fires, the current selloff is a gift to long-term investors who understand that in asset management, the franchise value compounds through cycles; the stock price does not.</p>
+  <p><span class="rating-pill">ACCUMULATE</span> 12-month price target: <strong>$158.</strong> We apply a 27x multiple to our 2026 DE/unit estimate of $5.80, reflecting Blackstone's superior franchise quality and AUM compounding trajectory, discounted modestly from historical peak premiums to account for real estate cycle uncertainty and the still-elevated rate environment. The 27x target multiple represents a 10–12% premium to the S&amp;P 500 on a forward earnings basis — justified by BX's structurally superior return on partners' capital (sustained at 40%+), AUM durability across cycles, and the optionality embedded in its insurance distribution and mass-affluent retail channels, both of which are systematically undervalued in consensus models that anchor on realization timing rather than management fee economics. The steel-man case for the bears is worth taking seriously: real estate is the original sin of BX's story, and if BREIT NAV experiences a second material markdown — particularly in a scenario where office distress spreads to logistics and multifamily — the redemption overhang narrative returns with force, and BX would deserve to trade at 20–22x carry-adjusted DE, implying a stock in the $115–$120 range. The single condition that flips us to <em>Buy</em> is evidence that real estate carry realizations have resumed at scale: specifically, if 2026 carry distributions return to the $1.50+/unit level (vs. approximately $1.10 in 2024), the earnings power revision cycle begins, consensus estimates move sharply higher, and the stock can trade through $175 on a 30x forward multiple. New capital can be deployed on pullbacks toward $128–$133, where the distribution yield approaches 3.5% and provides an attractive entry on the perpetual capital franchise alone, even assigning zero value to the carry optionality.</p>
 
-  <p class="analyst-sig">Equity Research — The Fedeli Group &nbsp;|&nbsp; Report Date: March 17, 2026 &nbsp;|&nbsp; Next Expected Earnings: ~April 17, 2026 (Q1 2026 Results)</p>
+  <p class="analyst-sig">Research Analyst, The Fedeli Group &nbsp;|&nbsp; March 18, 2026 &nbsp;|&nbsp; Next expected earnings: ~April 17, 2026 (Q1 2026 Results)</p>
 </div>
 
 <script>
-const labels = ['FY2021','FY2022','FY2023','FY2024','FY2025','FY2026 (E)','FY2027 (E)'];
+document.addEventListener('DOMContentLoaded', function () {
+  const labels   = ['2021','2022','2023','2024','2025','2026 (E)','2027 (E)'];
+  const deData   = [5.89, 3.54, 3.60, 4.71, 5.20, 5.80, 6.50];
+  const relPE    = [0.67, 1.45, 1.16, 1.14, 1.09, 1.02, 0.99];
+  const estStart = 5; // index where estimates begin (2026 E)
 
-// GAAP EPS — actual years filled, estimate years null for first dataset
-const epsActual  = [4.30, 2.36, 1.84, 3.62, 3.87, null, null];
-// Estimates: overlap at FY2025 for visual continuity
-const epsEst     = [null, null, null, null, 3.87, 4.50, 5.25];
+  const barColors = labels.map((_, i) => i >= estStart ? '#7f8fa6' : '#1a1a2e');
 
-// Relative P/E — actual vs estimate
-const relPEAct   = [0.84, 2.62, 2.60, 1.59, 1.70, null, null];
-const relPEEst   = [null, null, null, null, 1.70, 0.95, 0.90];
-
-const ctx = document.getElementById('bxChart').getContext('2d');
-new Chart(ctx, {
-  data: {
-    labels,
-    datasets: [
-      {
-        type: 'bar', label: 'EPS — GAAP ($)',
-        data: epsActual, backgroundColor: '#1a1a2e',
-        yAxisID: 'y', order: 2
-      },
-      {
-        type: 'bar', label: 'EPS (E)',
-        data: epsEst, backgroundColor: '#7f8fa6',
-        yAxisID: 'y', order: 2
-      },
-      {
-        type: 'line', label: 'Relative P/E',
-        data: relPEAct, borderColor: '#c0392b', backgroundColor: 'transparent',
-        borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#c0392b',
-        yAxisID: 'y2', order: 1, tension: 0.1
-      },
-      {
-        type: 'line', label: 'Relative P/E (E)',
-        data: relPEEst, borderColor: '#c0392b', backgroundColor: 'transparent',
-        borderWidth: 2, borderDash: [5,5], pointRadius: 4,
-        pointBackgroundColor: '#c0392b', pointBorderDash: [],
-        yAxisID: 'y2', order: 1, tension: 0.1
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top',
-        labels: { font: { size: 11 }, boxWidth: 14, padding: 12 }
-      },
-      tooltip: { mode: 'index', intersect: false }
+  const canvas = document.getElementById('bxChart');
+  new Chart(canvas, {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Distrib. Earnings / Unit ($)',
+          data: deData,
+          backgroundColor: barColors,
+          yAxisID: 'y',
+          order: 2
+        },
+        {
+          type: 'line',
+          label: 'Relative P/E',
+          data: relPE,
+          borderColor: '#c0392b',
+          borderWidth: 2,
+          pointRadius: 3.5,
+          fill: false,
+          tension: 0.1,
+          yAxisID: 'y1',
+          order: 1,
+          segment: {
+            borderDash: (sc) => sc.p0DataIndex >= estStart - 1 ? [5, 4] : undefined
+          },
+          pointBackgroundColor: (pc) => pc.dataIndex >= estStart ? '#e74c3c' : '#c0392b'
+        }
+      ]
     },
-    scales: {
-      y: {
-        title: { display: true, text: 'EPS ($)', font: { size: 11 } },
-        beginAtZero: true,
-        grid: { color: '#e8e8e8' },
-        ticks: { font: { size: 11 } }
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 15, padding: 12 } },
+        tooltip: { mode: 'index', intersect: false }
       },
-      y2: {
-        position: 'right',
-        title: { display: true, text: 'Relative P/E', font: { size: 11 } },
-        beginAtZero: true,
-        grid: { display: false },
-        ticks: { font: { size: 11 } }
-      },
-      x: { ticks: { font: { size: 11 } } }
+      scales: {
+        y: {
+          type: 'linear',
+          position: 'left',
+          title: { display: true, text: 'DE / Unit ($)', font: { size: 11 } },
+          grid: { color: '#ececec' },
+          beginAtZero: true,
+          suggestedMax: 8
+        },
+        y1: {
+          type: 'linear',
+          position: 'right',
+          title: { display: true, text: 'Relative P/E', font: { size: 11 } },
+          grid: { display: false },
+          min: 0,
+          max: 2.0
+        }
+      }
     }
-  }
+  });
 });
 </script>
 
