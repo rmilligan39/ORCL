@@ -1,459 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>ORCL — Oracle Corporation | Investment Report</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blackstone Inc. (BX) — Equity Research | The Fedeli Group</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:#0f0f0f;color:#e0e0e0;font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:14px}
-.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #111;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+.fedeli-brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #1a1a2e;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.fedeli-brand .firm { font-size: 20px; font-weight: bold; color: #1a1a2e; letter-spacing: 1.5px; }
+.fedeli-brand .sub  { font-size: 13px; color: #555; text-align: right; }
 
-/* Header */
-.hdr{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;background:#161616;border:1px solid #2a2a2a;border-left:4px solid #AD9551;border-radius:10px;margin-bottom:18px}
-.badge{background:#AD9551;color:#0f0f0f;font-size:2.1rem;font-weight:900;padding:8px 20px;border-radius:6px;letter-spacing:1px}
-.co-name{color:#fff;font-size:1.35rem;font-weight:700}
-.co-sub{color:#777;font-size:0.82rem;margin-top:3px}
-.bench-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.chip{background:#1c1c1c;border:1px solid #2a2a2a;border-radius:20px;padding:3px 11px;font-size:0.73rem;color:#aaa}
-.hdr-meta{text-align:right;font-size:0.8rem;color:#666}
-.hdr-meta .dt{color:#AD9551;font-weight:700;font-size:0.88rem}
+.header-table { width:100%; font-size:15px; border-collapse:collapse; margin-bottom:32px; }
+.header-table th { background-color:#1a1a2e; color:white; padding:10px 12px; text-align:left; }
+.header-table td { padding:10px 12px; border:1px solid #ccc; }
 
-/* Alert card */
-.alert-card{background:#161610;border:1px solid #AD9551;border-left:4px solid #AD9551;border-radius:8px;padding:14px 18px;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-.alert-title{color:#AD9551;font-weight:700;font-size:0.88rem;text-transform:uppercase;letter-spacing:0.5px}
-.alert-stats{display:flex;gap:20px;flex-wrap:wrap}
-.astat{text-align:center}
-.astat-val{color:#22d3ee;font-weight:700;font-size:1.1rem}
-.astat-lbl{color:#666;font-size:0.7rem;text-transform:uppercase}
+.data-block { display:flex; gap:32px; margin-bottom:40px; }
+.company-snapshot { flex:0 0 280px; font-size:16px; line-height:1.7; }
+.company-snapshot h2 { font-size:18px; margin-bottom:10px; }
+.right-col { flex:1; min-width:0; }
 
-/* Cards */
-.card{background:#161616;border:1px solid #2a2a2a;border-radius:10px;padding:20px;margin-bottom:18px}
-.sec-title{color:#AD9551;font-size:1rem;font-weight:700;border-bottom:1px solid #2a2a2a;padding-bottom:8px;margin-bottom:16px;letter-spacing:0.3px}
+.price-range-bar { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:0; }
+.price-range-bar th { background-color:#1a1a2e; color:white; padding:6px 8px; text-align:center; }
+.price-range-bar td { padding:6px 8px; text-align:center; border:1px solid #ccc; line-height:1.4; white-space:nowrap; }
+.price-range-bar td.est-cell { color:#7f8fa6; }
 
-/* Metrics */
-.met-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:10px}
-.met-c{background:#1c1c1c;border:1px solid #222;border-radius:8px;padding:13px 10px;text-align:center}
-.met-lbl{font-size:0.65rem;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px}
-.met-val{font-size:1.2rem;font-weight:700;color:#AD9551}
-.met-sub{font-size:0.67rem;color:#555;margin-top:2px}
+.chart-container { width:100%; height:220px; margin-bottom:0; }
 
-/* Chart */
-.chart-wrap{position:relative;height:300px}
-.toggle-row{display:flex;gap:8px;margin-bottom:12px}
-.tbtn{background:#1c1c1c;border:1px solid #2a2a2a;color:#aaa;padding:5px 14px;border-radius:20px;cursor:pointer;font-size:0.78rem;transition:all .2s}
-.tbtn.on{background:#AD9551;color:#0f0f0f;border-color:#AD9551;font-weight:700}
+.financial-table { width:100%; border-collapse:collapse; font-size:15px; margin-top:0; }
+.financial-table th { background-color:#1a1a2e; color:white; padding:8px 10px; text-align:right; white-space:nowrap; }
+.financial-table th:first-child { text-align:left; }
+.financial-table td { padding:7px 10px; border-bottom:1px solid #e0e0e0; text-align:right; white-space:nowrap; }
+.financial-table td:first-child { text-align:left; font-weight:500; }
+.financial-table tr:nth-child(even) { background-color:#f7f7f7; }
+.est { color:#7f8fa6; }
 
-/* Tables */
-.tbl-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:0.8rem}
-thead th{background:#1c1c1c;color:#AD9551;font-weight:600;padding:9px 7px;text-align:right;border-bottom:2px solid #2a2a2a;white-space:nowrap}
-thead th:first-child{text-align:left}
-tbody tr{border-bottom:1px solid #1a1a1a}
-tbody tr:hover{background:#1a1a1a}
-td{padding:8px 7px;text-align:right;color:#bbb}
-td:first-child{text-align:left;color:#ddd;font-weight:500}
-.fwd td{color:#AD9551!important;font-style:italic}
-.pos{color:#22c55e!important}
-.neg{color:#ef4444!important}
-.ctx{color:#666;font-style:italic;font-size:0.75rem}
-tfoot td{background:#1c1c1c;color:#666;font-size:0.7rem;font-style:italic;padding:7px}
+.tbl-footnotes { font-size:12px; color:#666; margin-top:10px; line-height:1.6; border-top:1px solid #ccc; padding-top:8px; }
 
-/* Verdict */
-.vrd{display:inline-block;padding:2px 9px;border-radius:10px;font-size:0.7rem;font-weight:700}
-.vg{background:#14532d;color:#22c55e}
-.vy{background:#422006;color:#fbbf24}
-.vo{background:#431407;color:#fb923c}
-.vr{background:#450a0a;color:#ef4444}
+.narrative { font-size:17px; line-height:1.85; max-width:960px; border-top:2px solid #1a1a2e; padding-top:24px; }
+.narrative p { margin-bottom:20px; }
+.analyst-sig { font-size:15px; color:#555; margin-top:24px; font-style:italic; }
 
-/* Tabs */
-.tab-nav{display:flex;flex-wrap:wrap;gap:0;border-bottom:2px solid #2a2a2a;margin-bottom:20px}
-.tnav{background:none;border:none;color:#666;padding:9px 15px;cursor:pointer;font-size:0.8rem;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
-.tnav:hover{color:#ccc}
-.tnav.on{color:#AD9551;border-bottom-color:#AD9551;font-weight:700}
-.tc{display:none}
-.tc.on{display:block}
-.tc p{color:#b0b0b0;font-size:0.88rem;line-height:1.8;margin-bottom:13px}
-.tc h3{color:#AD9551;font-size:0.9rem;font-weight:700;margin:18px 0 8px}
-.tc strong{color:#e0e0e0}
-.tc ul{color:#b0b0b0;font-size:0.88rem;padding-left:18px;margin-bottom:13px}
-.tc li{margin-bottom:5px;line-height:1.7}
-
-/* Footer */
-.footer{text-align:center;font-size:0.7rem;color:#444;padding:22px 0;border-top:1px solid #1a1a1a;line-height:1.7;margin-top:4px}
-
-@media(max-width:600px){.badge{font-size:1.5rem}.co-name{font-size:1.1rem}.hdr-meta{text-align:left}}
+.rating-buy { color:#fff; background:#1a6e2e; padding:2px 8px; border-radius:3px; font-weight:bold; font-size:15px; }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<!-- HEADER -->
-<div class="hdr">
-  <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
-    <span class="badge">ORCL</span>
-    <div>
-      <div class="co-name">Oracle Corporation</div>
-      <div class="co-sub">NYSE · S&amp;P 500 · Enterprise Software / Cloud Infrastructure · Austin, TX</div>
-      <div class="bench-row">
-        <span class="chip">vs S&amp;P 500</span>
-        <span class="chip">vs MSFT (Microsoft)</span>
-        <span class="chip">vs SAP (Enterprise Peer)</span>
-      </div>
+<!-- BRANDING -->
+<div class="fedeli-brand">
+  <div class="firm">THE FEDELI GROUP</div>
+  <div class="sub">Equity Research &nbsp;|&nbsp; Alternative Asset Managers<br>March 17, 2026</div>
+</div>
+
+<!-- SECTION 1: HEADER -->
+<table class="header-table">
+  <thead>
+    <tr>
+      <th>Company &amp; Ticker</th>
+      <th>Recent Price</th>
+      <th>Trailing P/E</th>
+      <th>Forward P/E</th>
+      <th>Dividend Yield</th>
+      <th>Market Cap</th>
+      <th>Beta</th>
+      <th>Timeliness (1–5)</th>
+      <th>Safety (1–5)</th>
+      <th>Financial Strength</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Blackstone Inc. (BX)</strong></td>
+      <td><strong>$107.00</strong></td>
+      <td>27.6x</td>
+      <td>23.8x (E)</td>
+      <td>5.6%</td>
+      <td>~$99B</td>
+      <td>1.62</td>
+      <td><strong>2</strong></td>
+      <td><strong>3</strong></td>
+      <td><strong>A+</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SECTION 2: DATA BLOCK -->
+<div class="data-block">
+
+  <!-- LEFT: Snapshot -->
+  <div class="company-snapshot">
+    <h2>Company Snapshot</h2>
+    <p>Blackstone Inc. is the world's largest alternative asset manager, overseeing $1.275 trillion in AUM across four segments: Real Estate ($319B), Private Equity / Infrastructure ($416B), Credit &amp; Insurance ($354B), and Multi-Asset Investing ($186B). The firm's structural moat is its brand and scale — in private markets, size creates access to deal flow, LP relationships, and co-investment networks that smaller competitors cannot replicate, making Blackstone the default "reference firm" in alternatives. Revenue quality is bifurcated: fee-related earnings (FRE, now $5.7B annually) are durable and growing at high-single-digit rates; performance revenues are cyclical and have just re-accelerated after a two-year realization drought. The most critical risk is not macro — it is the private wealth channel, where BCRED redemption pressure (~$3.7B in recent outflows) has rattled confidence in Blackstone's retail LP expansion strategy, the thesis underpinning its next decade of AUM growth. At $107 (~19x FY2025 distributable earnings of $5.57), the stock trades at a historic valuation discount, implying a level of structural damage the operating fundamentals simply do not support.</p>
+    <p><strong>HQ:</strong> New York, NY<br>
+    <strong>CEO:</strong> Stephen A. Schwarzman<br>
+    <strong>President/COO:</strong> Jonathan D. Gray<br>
+    <strong>Ticker:</strong> NYSE: BX<br>
+    <strong>Website:</strong> blackstone.com</p>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-col">
+
+    <!-- PRICE RANGE BAR -->
+    <table class="price-range-bar">
+      <thead>
+        <tr>
+          <th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>FY2026 (E)</th><th>FY2027 (E)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>H: $132.75<br>L: $57.03</td>
+          <td>H: $133.43<br>L: $78.56</td>
+          <td>H: $136.07<br>L: $83.57</td>
+          <td>H: $200.96<br>L: $99.55</td>
+          <td>H: $191.92<br>L: $143.22</td>
+          <td class="est-cell">H: $125.00<br>L: $95.00</td>
+          <td class="est-cell">H: $160.00<br>L: $115.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- CHART -->
+    <div class="chart-container">
+      <canvas id="bxChart"></canvas>
+    </div>
+
+    <!-- FINANCIAL TABLE -->
+    <table class="financial-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th>
+          <th>FY2026 (E)</th><th>FY2027 (E)</th><th>'27–'29 (E)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Revenues per Share</td>
+          <td>$32.37</td><td>$9.92</td><td>$13.73</td><td>$17.53</td><td>$19.47</td>
+          <td class="est">$22.35</td><td class="est">$25.40</td><td class="est">$28–$32</td>
+        </tr>
+        <tr>
+          <td>"Cash Flow" per Share ¹</td>
+          <td>$3.10</td><td>$3.20</td><td>$3.50</td><td>$4.21</td><td>$4.47</td>
+          <td class="est">$5.00</td><td class="est">$5.75</td><td class="est">$6.50–$8.00</td>
+        </tr>
+        <tr>
+          <td>Earnings per Share ²</td>
+          <td>$4.30</td><td>$2.36</td><td>$1.84</td><td>$3.62</td><td>$3.87</td>
+          <td class="est">$4.50</td><td class="est">$5.25</td><td class="est">$6.00–$8.00</td>
+        </tr>
+        <tr>
+          <td>Dist. Decl'd per Share</td>
+          <td>$6.15</td><td>$2.78</td><td>$2.80</td><td>$3.95</td><td>$4.73</td>
+          <td class="est">$4.25</td><td class="est">$5.00</td><td class="est">—</td>
+        </tr>
+        <tr>
+          <td>Cap'l Spending per Share</td>
+          <td>$0.12</td><td>$0.13</td><td>$0.14</td><td>$0.16</td><td>$0.17</td>
+          <td class="est">$0.18</td><td class="est">$0.20</td><td class="est">—</td>
+        </tr>
+        <tr>
+          <td>Book Value per Share ³</td>
+          <td>$12.85</td><td>$10.68</td><td>$11.43</td><td>$12.82</td><td>$14.51</td>
+          <td class="est">$16.00</td><td class="est">$18.50</td><td class="est">$22–$26</td>
+        </tr>
+        <tr>
+          <td>Shares/Units Outstanding (M)</td>
+          <td>697</td><td>706</td><td>714</td><td>722</td><td>730</td>
+          <td class="est">737</td><td class="est">743</td><td class="est">~750</td>
+        </tr>
+        <tr>
+          <td>Avg Ann'l P/E Ratio ²</td>
+          <td>22.6x</td><td>44.5x</td><td>57.1x</td><td>42.8x</td><td>42.6x</td>
+          <td class="est">23.8x</td><td class="est">22.0x</td><td class="est">18–22x</td>
+        </tr>
+        <tr>
+          <td>Relative P/E Ratio</td>
+          <td>0.84</td><td>2.62</td><td>2.60</td><td>1.59</td><td>1.70</td>
+          <td class="est">0.95</td><td class="est">0.90</td><td class="est">0.85–1.00</td>
+        </tr>
+        <tr>
+          <td>Avg Ann'l Dist. Yield</td>
+          <td>6.3%</td><td>2.6%</td><td>2.5%</td><td>2.6%</td><td>2.9%</td>
+          <td class="est">4.2%</td><td class="est">4.8%</td><td class="est">5%+</td>
+        </tr>
+        <tr>
+          <td>Revenues ($mill)</td>
+          <td>$22,564</td><td>$7,000</td><td>$9,800</td><td>$12,660</td><td>$14,210</td>
+          <td class="est">$16,500</td><td class="est">$18,500</td><td class="est">$20–$23B</td>
+        </tr>
+        <tr>
+          <td>Operating Margin (%) ¹</td>
+          <td>58%</td><td>62%</td><td>65%</td><td>68%</td><td>71%</td>
+          <td class="est">72%</td><td class="est">73%</td><td class="est">73–76%</td>
+        </tr>
+        <tr>
+          <td>Depreciation ($mill)</td>
+          <td>$121</td><td>$135</td><td>$148</td><td>$161</td><td>$175</td>
+          <td class="est">$186</td><td class="est">$196</td><td class="est">—</td>
+        </tr>
+        <tr>
+          <td>Net Profit ($mill) ²</td>
+          <td>$2,997</td><td>$1,391</td><td>$1,748</td><td>$2,777</td><td>$3,020</td>
+          <td class="est">$3,320</td><td class="est">$3,900</td><td class="est">$4.5–$5.5B</td>
+        </tr>
+        <tr>
+          <td>Income Tax Rate (%)</td>
+          <td>1.8%</td><td>2.0%</td><td>2.2%</td><td>2.1%</td><td>2.0%</td>
+          <td class="est">2.0%</td><td class="est">2.0%</td><td class="est">~2%</td>
+        </tr>
+        <tr>
+          <td>Net Profit Margin (%) ²</td>
+          <td>13.3%</td><td>19.9%</td><td>17.8%</td><td>21.9%</td><td>21.2%</td>
+          <td class="est">20.1%</td><td class="est">21.1%</td><td class="est">22–25%</td>
+        </tr>
+        <tr>
+          <td>Working Cap'l ($mill)</td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+          <td class="est">—</td><td class="est">—</td><td class="est">—</td>
+        </tr>
+        <tr>
+          <td>Long-Term Debt ($mill)</td>
+          <td>$7,600</td><td>$8,200</td><td>$9,100</td><td>$9,800</td><td>$9,800</td>
+          <td class="est">$10,200</td><td class="est">$10,500</td><td class="est">—</td>
+        </tr>
+        <tr>
+          <td>Partners'/Shareholders' Capital ($mill)</td>
+          <td>$8,950</td><td>$7,545</td><td>$8,160</td><td>$9,255</td><td>$10,600</td>
+          <td class="est">$11,800</td><td class="est">$13,750</td><td class="est">—</td>
+        </tr>
+        <tr>
+          <td>Return on Total Cap'l (%)</td>
+          <td>18.3%</td><td>10.2%</td><td>7.4%</td><td>14.5%</td><td>15.3%</td>
+          <td class="est">15.8%</td><td class="est">17.2%</td><td class="est">18–20%</td>
+        </tr>
+        <tr>
+          <td>Return on Partners' Cap'l (%)</td>
+          <td>33.5%</td><td>22.1%</td><td>16.1%</td><td>30.0%</td><td>28.5%</td>
+          <td class="est">28.1%</td><td class="est">28.4%</td><td class="est">28–32%</td>
+        </tr>
+        <tr>
+          <td>Retained to Partners' Cap'l (%)</td>
+          <td>–23.6%</td><td>–6.5%</td><td>–5.6%</td><td>–1.8%</td><td>–8.2%</td>
+          <td class="est">–5.7%</td><td class="est">–3.4%</td><td class="est">—</td>
+        </tr>
+        <tr>
+          <td>All Dist. to Net Profit (%)</td>
+          <td>143%</td><td>141%</td><td>114%</td><td>103%</td><td>114%</td>
+          <td class="est">94%</td><td class="est">95%</td><td class="est">—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tbl-footnotes">
+      <strong>¹ "Cash Flow" / Operating Margin:</strong> "Cash Flow" per Share = FRE (Fee-Related Earnings) per common share — the recurring, fee-driven earnings stream insulated from realization cycles. Operating Margin = FRE as a % of total management &amp; fee-related performance revenues; expanded to a record 71% in FY2025.<br>
+      <strong>² GAAP Basis Note:</strong> EPS, P/E, Net Profit, and Net Profit Margin reflect GAAP net income attributable to Blackstone Inc. common stockholders. Investors should focus primarily on <strong>Distributable Earnings (DE) per unit</strong>, which represent cash available to all economic unit holders: FY2025 DE = <strong>$5.57</strong> | FY2024 DE ≈ <strong>$4.64</strong> | FY2023 DE ≈ <strong>$3.28</strong>. At $107, <strong>P/DE = 19.2x</strong> — a multi-year historic low vs. the 2022–2024 average of ~31x. GAAP revenues are distorted year-to-year by unrealized mark-to-market swings in portfolio fair values (most visible in the FY2021 revenue spike and FY2022 compression).<br>
+      <strong>³ Book Value:</strong> Reflects GAAP shareholders' equity attributable to BX common stockholders per share. Book value is not a meaningful valuation anchor for an asset-light manager; AUM scale, FRE growth, and realization pipeline are the relevant intrinsic value drivers.
     </div>
   </div>
-  <div class="hdr-meta">
-    <div class="dt">March 11, 2026</div>
-    <div>Post Q3 FY2026 Earnings</div>
-    <div style="margin-top:4px">The Fedeli Group · Investment Research</div>
-  </div>
 </div>
 
-<!-- Q3 ALERT -->
-<div class="alert-card">
-  <div>
-    <div class="alert-title">⚡ Q3 FY2026 Earnings Beat — Just Reported (March 10, 2026)</div>
-    <div style="color:#888;font-size:0.78rem;margin-top:3px">First quarter in 15+ years of 20%+ organic revenue AND non-GAAP EPS growth simultaneously · Stock +9.4% today</div>
-  </div>
-  <div class="alert-stats">
-    <div class="astat"><div class="astat-val">$17.2B</div><div class="astat-lbl">Revenue +22%</div></div>
-    <div class="astat"><div class="astat-val">$8.9B</div><div class="astat-lbl">Cloud +44%</div></div>
-    <div class="astat"><div class="astat-val">$1.79</div><div class="astat-lbl">Non-GAAP EPS</div></div>
-    <div class="astat"><div class="astat-val">$553B</div><div class="astat-lbl">RPO +325%</div></div>
-    <div class="astat"><div class="astat-val">$90B</div><div class="astat-lbl">FY2027 Guide</div></div>
-  </div>
+<!-- SECTION 3: NARRATIVE -->
+<div class="narrative">
+
+  <p><strong>The headline risk is not the story.</strong> Full-year 2025 was the strongest in Blackstone's 40-year history by almost every operating metric: AUM reached $1.275 trillion (up 13%), distributable earnings grew 20% to $5.57 per unit, management fees crossed $8 billion (up 12%), FRE margins hit an all-time record, and net realizations surged 50% to $2.1 billion. Q4 2025 was the exclamation point — $71 billion of inflows (the highest quarterly figure in three-and-a-half years), DE of $1.75 per unit (14% ahead of the $1.53 consensus), and infrastructure appreciating 24% for the full year. Yet the stock sits at $107, down 47% from its November 2024 all-time high of $200.96. The disconnect is explained almost entirely by one word: BCRED. Blackstone's flagship private credit vehicle has experienced roughly $3.7 billion in net outflows in recent months, triggering a market narrative that the private wealth channel — the firm's primary growth engine since 2020 — is in structural retreat. This framing overstates the risk. The more accurate read is that BCRED is experiencing a redemption squeeze that is cyclical (retail investors spooked by rate volatility and private credit headlines amplified by JPMorgan's decision to restrict lending to some private credit providers), not a repudiation of the underlying thesis. Critically, the quality of BX's earnings is actually improving beneath the noise: FRE — recurring, management-fee-driven, nearly all-weather — now represents a larger share of total DE than at any point in the firm's public history. Q4 2025 FRE of $1.5 billion marked a $1.25/unit contribution that is structurally durable regardless of what M&amp;A markets or retail LP sentiment does in any given quarter. The market is pricing a structural impairment; the financials reflect a cyclical headwind on the least durable earnings component.</p>
+
+  <p>Looking ahead, three catalysts determine whether this discount resolves or persists. First, AI and digital infrastructure is the most powerful secular tailwind Blackstone has ever identified. Infrastructure AUM grew 18% in FY2025 to $416 billion, with the commingled infrastructure flagship delivering 18% net returns since inception — returns that will continue attracting institutional capital at scale irrespective of near-term macro conditions. Blackstone's reported discussions with Anthropic and other AI companies about a joint venture to embed AI across portfolio companies represent the next evolution: this isn't a passive infrastructure bet but an active operating-value thesis that, if executed, creates a differentiated source of alpha for PE funds. Second, the private wealth channel trajectory is the swing factor. The 53% growth in private wealth fundraising in 2025 (to $43 billion) was the firm's fastest rate ever — and Blackstone is estimated to hold roughly 50% revenue share among major alt firms in the retail channel, a compounding dominance that survives temporary redemption pressure. In Q4 2025, BCRED gross sales reached $3.3 billion against net inflows of $1.2 billion, suggesting the bleeding is controlled; the key leading indicator is whether gross sales sustain above $3 billion per quarter as rate expectations stabilize. Third, the M&amp;A and IPO realization cycle is beginning to reopen. Management cited "early signs of capital markets reopening" on the Q4 call, and the $200 billion dry powder war chest means Blackstone is optimally positioned to deploy capital at scale into the next vintage. The risk register is real but manageable: a prolonged private credit stress cycle (JPMorgan's lending restrictions signal institutional unease), rate sensitivity in the core-plus real estate book (75% concentrated in data centers, logistics, and rental housing — actually a pro, not a con), and the ever-present risk that the "alternatives premium" embedded in BX's multiple erodes if public market alternatives (interval funds, BDCs) become commoditized at lower fee rates.</p>
+
+  <p>BX is rated <span class="rating-buy">BUY</span> with a 12-month price target of <strong>$145</strong>, implying 36% upside from current levels and a 5.6% forward yield in the interim. The target is derived by applying <strong>26x to FY2026E DE of approximately $6.00–$6.10 per unit</strong> — a modest premium to historical P/DE trough multiples (~22x in 2019–2020) and a meaningful discount to the 30–35x range BX commanded during its 2021–2024 re-rating. A simple way to frame the current valuation: at $107, you are paying less than 20x the fee-driven earnings of the world's largest, highest-margin alternative manager with a 13% AUM CAGR and a 5.6% yield. The IRR math on that entry is compelling even in a flat-multiple scenario. A full reversion to 28x FY2027E DE of ~$6.75 implies a two-year price of ~$189 — the base case if the private credit fear narrative resolves. The single condition that would cause a downgrade: sustained acceleration of combined BCRED and BREIT net redemptions exceeding $5 billion per quarter for two consecutive quarters, signaling that the retail LP base is becoming a structurally unreliable funding source — the central assumption underpinning Blackstone's next decade of AUM compounding. Until that signal fires, the current selloff is a gift to long-term investors who understand that in asset management, the franchise value compounds through cycles; the stock price does not.</p>
+
+  <p class="analyst-sig">Equity Research — The Fedeli Group &nbsp;|&nbsp; Report Date: March 17, 2026 &nbsp;|&nbsp; Next Expected Earnings: ~April 17, 2026 (Q1 2026 Results)</p>
 </div>
-
-<!-- KEY METRICS -->
-<div class="card">
-  <div class="sec-title">Key Metrics Strip</div>
-  <div class="met-grid">
-    <div class="met-c"><div class="met-lbl">Current Price</div><div class="met-val">$164.50</div><div class="met-sub">+9.4% on Q3 beat</div></div>
-    <div class="met-c"><div class="met-lbl">Forward P/E</div><div class="met-val">~22×</div><div class="met-sub">FY2026E EPS ~$7.20</div></div>
-    <div class="met-c"><div class="met-lbl">EV/EBITDA</div><div class="met-val">~17×</div><div class="met-sub">TTM $24.1B EBITDA</div></div>
-    <div class="met-c"><div class="met-lbl">Rev/Share Growth</div><div class="met-val">2.2×</div><div class="met-sub">FY2016 → FY2025</div></div>
-    <div class="met-c"><div class="met-lbl">Beta</div><div class="met-val">1.65</div><div class="met-sub">↑ from ~0.8 pre-2022</div></div>
-    <div class="met-c"><div class="met-lbl">Debt / Equity</div><div class="met-val">4.33×</div><div class="met-sub">Post-Cerner + capex</div></div>
-    <div class="met-c"><div class="met-lbl">FY2025 Revenue</div><div class="met-val">$57.4B</div><div class="met-sub">+8.4% YoY</div></div>
-    <div class="met-c"><div class="met-lbl">EBITDA Margin</div><div class="met-val">42%</div><div class="met-sub">FY2025 (peak 46%)</div></div>
-  </div>
-</div>
-
-<!-- MAIN CHART -->
-<div class="card">
-  <div class="sec-title">Revenue/Share &amp; EV/EBITDA — Fiscal Year Trend</div>
-  <div class="toggle-row">
-    <button class="tbtn on" id="btn-a" onclick="swapChart('main',this)">Rev/Share + EV/EBITDA</button>
-    <button class="tbtn" id="btn-b" onclick="swapChart('perf',this)">Indexed Price Performance (Base 100)</button>
-  </div>
-  <div class="chart-wrap">
-    <canvas id="mc"></canvas>
-  </div>
-</div>
-
-<!-- REV/SHARE + VALUATION TABLE -->
-<div class="card">
-  <div class="sec-title">Revenue Per Share &amp; Valuation — Fiscal Year (ending May 31)</div>
-  <div class="tbl-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Fiscal Year</th>
-          <th>Revenue ($B)</th>
-          <th>Shares (B)</th>
-          <th>Rev / Share</th>
-          <th>YoY Δ</th>
-          <th>EBITDA ($B)</th>
-          <th>Margin</th>
-          <th>EV/EBITDA</th>
-          <th>Adj EPS</th>
-          <th>Price (FYE)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>FY2016</td><td>$37.0</td><td>4.00</td><td>$9.25</td><td>—</td><td>$14.8</td><td>40%</td><td>9.0×</td><td>$2.57</td><td>$40</td></tr>
-        <tr><td>FY2017</td><td>$37.7</td><td>3.75</td><td>$10.05</td><td class="pos">+8.7%</td><td>$15.2</td><td>40%</td><td>10.0×</td><td>$2.74</td><td>$45</td></tr>
-        <tr><td>FY2018</td><td>$39.8</td><td>3.50</td><td>$11.37</td><td class="pos">+13.1%</td><td>$16.5</td><td>41%</td><td>11.5×</td><td>$3.15</td><td>$47</td></tr>
-        <tr><td>FY2019</td><td>$39.5</td><td>3.30</td><td>$11.97</td><td class="pos">+5.3%</td><td>$16.7</td><td>42%</td><td>12.0×</td><td>$3.26</td><td>$55</td></tr>
-        <tr><td>FY2020</td><td>$39.1</td><td>3.00</td><td>$13.03</td><td class="pos">+8.8%</td><td>$17.2</td><td>44%</td><td>13.0×</td><td>$3.85</td><td>$60</td></tr>
-        <tr><td>FY2021</td><td>$40.5</td><td>2.78</td><td>$14.57</td><td class="pos">+11.8%</td><td>$18.6</td><td>46%</td><td>15.0×</td><td>$4.67</td><td>$82</td></tr>
-        <tr><td>FY2022</td><td>$42.4</td><td>2.70</td><td>$15.70</td><td class="pos">+7.8%</td><td>$13.7</td><td>32%</td><td>21.0×</td><td>$5.00</td><td>$73</td></tr>
-        <tr><td>FY2023</td><td>$50.0</td><td>2.75</td><td>$18.18</td><td class="pos">+15.8%</td><td>$18.9</td><td>38%</td><td>19.0×</td><td>$5.12</td><td>$105</td></tr>
-        <tr><td>FY2024</td><td>$53.0</td><td>2.76</td><td>$19.20</td><td class="pos">+5.6%</td><td>$21.6</td><td>41%</td><td>22.0×</td><td>$5.56</td><td>$128</td></tr>
-        <tr><td>FY2025</td><td>$57.4</td><td>2.86</td><td>$20.07</td><td class="pos">+4.5%</td><td>$24.1</td><td>42%</td><td>25.0×</td><td>$6.29</td><td>$159</td></tr>
-        <tr class="fwd"><td>FY2026E ▲</td><td>~$67.0</td><td>2.87</td><td>~$23.35</td><td>+16.3%</td><td>~$28.0</td><td>~42%</td><td>~17.0×</td><td>~$7.20</td><td>$164.50</td></tr>
-      </tbody>
-      <tfoot><tr><td colspan="10">FY ends May 31. FY2022 EBITDA/margin compressed by $28.4B Cerner acquisition costs and amortization. Shares reflect diluted weighted average. EPS = Non-GAAP adjusted. FY2026E per company guidance + Q3 actuals. EV/EBITDA estimates based on year-end market cap, total debt, and cash. 10Y median EV/EBITDA ≈ 14–15×.</td></tr></tfoot>
-    </table>
-  </div>
-</div>
-
-<!-- ANNUAL RETURNS TABLE -->
-<div class="card">
-  <div class="sec-title">Year-over-Year Total Returns — Calendar Year (Including Dividends)</div>
-  <div class="tbl-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Year</th>
-          <th>ORCL</th>
-          <th>S&amp;P 500</th>
-          <th>MSFT</th>
-          <th>SAP</th>
-          <th>vs S&amp;P (pp)</th>
-          <th style="text-align:left">Context</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>2015</td><td class="neg">−12%</td><td class="pos">+1%</td><td class="pos">+23%</td><td class="pos">+6%</td><td class="neg">−13pp</td><td class="ctx">Cloud pivot unproven; Ellison dismissiveness hurt credibility</td></tr>
-        <tr><td>2016</td><td class="pos">+6%</td><td class="pos">+12%</td><td class="pos">+15%</td><td class="pos">+3%</td><td class="neg">−6pp</td><td class="ctx">SaaS ramp glacially slow; investors skeptical</td></tr>
-        <tr><td>2017</td><td class="pos">+25%</td><td class="pos">+22%</td><td class="pos">+37%</td><td class="pos">+22%</td><td class="pos">+3pp</td><td class="ctx">SaaS momentum builds; multiple expansion begins</td></tr>
-        <tr><td>2018</td><td class="neg">−3%</td><td class="neg">−4%</td><td class="pos">+21%</td><td class="neg">−12%</td><td class="pos">+1pp</td><td class="ctx">Rate rise punishes growth; Azure gap widening</td></tr>
-        <tr><td>2019</td><td class="pos">+19%</td><td class="pos">+31%</td><td class="pos">+58%</td><td class="pos">+24%</td><td class="neg">−12pp</td><td class="ctx">MSFT Azure dominance unambiguous; ORCL lagging</td></tr>
-        <tr><td>2020</td><td class="pos">+24%</td><td class="pos">+18%</td><td class="pos">+43%</td><td class="neg">−6%</td><td class="pos">+6pp</td><td class="ctx">Pandemic cloud tailwinds; TikTok publicity; autonomous DB traction</td></tr>
-        <tr><td>2021</td><td class="pos">+37%</td><td class="pos">+29%</td><td class="pos">+53%</td><td class="neg">−11%</td><td class="pos">+8pp</td><td class="ctx">Cerner acquisition announced; healthcare cloud positioning</td></tr>
-        <tr><td>2022</td><td class="neg">−5%</td><td class="neg">−18%</td><td class="neg">−28%</td><td class="pos">+8%</td><td class="pos">+13pp</td><td class="ctx">Rate shock; ORCL defensive moat shines vs. growth peers</td></tr>
-        <tr><td>2023</td><td class="pos">+31%</td><td class="pos">+26%</td><td class="pos">+58%</td><td class="pos">+38%</td><td class="pos">+5pp</td><td class="ctx">AI inflection; OCI wins surge; RPO breakout begins</td></tr>
-        <tr><td>2024</td><td class="pos">+60%</td><td class="pos">+25%</td><td class="pos">+13%</td><td class="pos">+65%</td><td class="pos">+35pp</td><td class="ctx">AI infra mania; OCI emerges as hyperscaler contender</td></tr>
-        <tr><td>2025</td><td class="pos">+18%</td><td class="pos">+23%</td><td class="neg">−1%</td><td class="pos">+55%</td><td class="neg">−5pp</td><td class="ctx">Peaked $345 Sep 2025; −57% crash on $50B capex fears; partial recovery</td></tr>
-      </tbody>
-      <tfoot><tr><td colspan="7">Calendar year returns including dividends. MSFT/SAP are estimates from published data; minor variance possible. 2026 YTD: ORCL approximately −14% through March 10; +9.4% on March 11 post Q3 earnings.</td></tr></tfoot>
-    </table>
-  </div>
-</div>
-
-<!-- CUMULATIVE TABLE -->
-<div class="card">
-  <div class="sec-title">Cumulative Total Return Summary</div>
-  <div class="tbl-wrap">
-    <table>
-      <thead>
-        <tr><th>Period</th><th>ORCL</th><th>S&amp;P 500</th><th>MSFT</th><th>SAP</th><th>Verdict</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1-Year (TTM, pre-Q3)</td>
-          <td class="neg">−7%</td>
-          <td class="pos">+14%</td>
-          <td class="pos">+5%</td>
-          <td class="pos">+35%</td>
-          <td><span class="vrd vo">Underperform</span></td>
-        </tr>
-        <tr>
-          <td>3-Year</td>
-          <td class="pos">+80%</td>
-          <td class="pos">+65%</td>
-          <td class="pos">+42%</td>
-          <td class="pos">+200%</td>
-          <td><span class="vrd vy">Mixed</span></td>
-        </tr>
-        <tr>
-          <td>5-Year</td>
-          <td class="pos">+146%</td>
-          <td class="pos">+110%</td>
-          <td class="pos">+94%</td>
-          <td class="pos">+270%</td>
-          <td><span class="vrd vg">Outperform</span></td>
-        </tr>
-        <tr>
-          <td>10-Year</td>
-          <td class="pos">+363%</td>
-          <td class="pos">+230%</td>
-          <td class="pos">+750%</td>
-          <td class="pos">+380%</td>
-          <td><span class="vrd vy">Mixed</span></td>
-        </tr>
-      </tbody>
-      <tfoot><tr><td colspan="6">TTM as of March 10, 2026 (pre-earnings close $149.40). 10Y from Jan 2016. ORCL 10Y sourced from financecharts.com. MSFT 10Y per financecharts; SAP estimated from published data.</td></tr></tfoot>
-    </table>
-  </div>
-</div>
-
-<!-- ANALYSIS TABS -->
-<div class="card">
-  <div class="sec-title">Investment Analysis — The Fedeli Group</div>
-  <div class="tab-nav">
-    <button class="tnav on" onclick="swapTab('gfw',this)">Good for What?!?</button>
-    <button class="tnav" onclick="swapTab('exec',this)">Executive Summary</button>
-    <button class="tnav" onclick="swapTab('score',this)">The Scoreboard</button>
-    <button class="tnav" onclick="swapTab('regime',this)">Regime Analysis</button>
-    <button class="tnav" onclick="swapTab('risk',this)">Risk / Return</button>
-    <button class="tnav" onclick="swapTab('fsent',this)">Fundamentals vs. Sentiment</button>
-  </div>
-
-  <!-- GFW -->
-  <div class="tc on" id="tc-gfw">
-    <h3>The Bottom Line First</h3>
-    <p>Oracle today is a stock where the bear case and bull case are both internally coherent — and both extreme. That's unusual, and it's the source of the genuine opportunity here. You are buying a 46-year-old enterprise software company that, against strong consensus skepticism, has credibly positioned itself as a hyperscaler-scale AI infrastructure provider. The stock peaked at <strong>$345.72 in September 2025</strong>, crashed <strong>−57% to $118.86 in April 2025</strong> (within the same calendar year — a stunning swing), and now sits at $164 after tonight's Q3 FY2026 beat. That volatility is not noise. It reflects a market that genuinely doesn't know what to make of a legacy enterprise company making a $50B capital expenditure bet on AI infrastructure.</p>
-
-    <h3>What Makes This a Buy</h3>
-    <p>The buy case rests on three structural legs that are now beginning to show up in actual revenue, not just narratives. First: <strong>the $553B RPO is partially real and accelerating.</strong> Remaining Performance Obligations — contractually signed future revenue — grew 325% year-over-year in a single quarter. Cloud infrastructure revenue grew 44% in Q3, OCI multicloud database expanded 531%, and AI infrastructure revenue rose 243%. These are not soft pipeline metrics; they are executed contracts. Second: <strong>the valuation reset is significant.</strong> At $164 and approximately 17× trailing EV/EBITDA, Oracle trades at or below its 10-year median multiple despite a structurally superior growth profile. A forward P/E of ~22× for a company guiding $90B in FY2027 revenue — accelerating from $57B in FY2025 — is not heroic math. Third: <strong>Oracle's database moat is the stickiest flywheel in enterprise technology.</strong> 100% of the Fortune 100 runs Oracle software. The migration path from "Oracle database customer" to "OCI cloud customer" is frictionless compared to migrating to AWS, where security, compliance, and contractual relationships all start from scratch. Oracle isn't competing for new logos; it's upgrading a captive installed base of the most regulated, data-sensitive enterprises on earth.</p>
-
-    <h3>What Makes This a Pass</h3>
-    <p>The pass case is equally coherent. First: <strong>$50B in capex is a mortgage, not just an investment.</strong> Oracle's FY2026 guided capital expenditure is roughly equal to its entire annual revenue. Most of that is data center construction. If AI efficiency continues compressing compute requirements (the Deepseek trend is real and ongoing), Oracle could be building stranded assets at peak construction costs. The D/E ratio of 4.33× already reflects the Cerner debt load; $50B in infrastructure capex compresses free cash flow sharply — FCF of $9.5B vs. operating cash flow of $20.3B in Q2 FY2026 tells that story clearly. Second: <strong>the RPO explosion demands scrutiny.</strong> The jump from $65B to $553B in RPO in roughly one year is historically unprecedented for any enterprise software company. Oracle disclosed that most of the Q3 increase came from "large scale AI contracts" — likely framework agreements with governments and hyperscalers that may carry contingency terms not visible in the headline number. Until revenue converts at the velocity implied, $553B is an option on a future state, not a locked-in backlog. Third: <strong>you can own better-positioned alternatives.</strong> MSFT has Azure with a 10-year head start, Copilot integration monetizing immediately, and a nearly debt-free balance sheet. SAP's cloud transition is substantially complete. NVIDIA owns the actual GPU scarcity chokepoint. Oracle's specific appeal — sovereign cloud for regulated enterprise AI — is real, but it's a niche that is harder to size and easier to disrupt than the headline RPO implies.</p>
-
-    <h3>Catalyst Map</h3>
-    <p><strong>Positive:</strong> Q4 FY2026 results (June 2026) sustaining 20%+ organic revenue growth; accelerating RPO-to-revenue conversion; Stargate/US government AI infrastructure contracts moving from announcement to execution; any reduction in capex guidance signaling infrastructure discipline; OCI multicloud partnerships deepening with AWS/Azure/GCP.</p>
-    <p><strong>Negative:</strong> Free cash flow deteriorating further (capex burn accelerating); any RPO termination or material revision to contract terms; evidence of hyperscaler share loss in core database workloads; credit rating pressure from current leverage; Deepseek-style AI efficiency gains reducing per-workload infrastructure demand faster than new workloads scale up.</p>
-    <p><strong>The framework:</strong> Oracle at $164 is a legitimate position for a portfolio tolerating a beta of 1.65 and a 12-24 month conviction horizon. The 52-week range of $119–$346 means you must be right about direction and patient about timing, or size appropriately to hold through volatility. This is not a buy-and-forget compounder at current leverage levels — it is a turnaround-to-growth story that just cleared its most important quarterly hurdle.</p>
-  </div>
-
-  <!-- EXEC -->
-  <div class="tc" id="tc-exec">
-    <p>Oracle is simultaneously the most underestimated and overestimated stock in enterprise technology. For most of the 2015–2022 period, it was dismissed as a dying legacy player clinging to on-premise database revenue. Today it is credibly positioned as the world's fourth-largest cloud infrastructure provider, and the default sovereign/regulated cloud alternative for enterprises that cannot or will not run sensitive workloads on AWS, Azure, or GCP. The narrative shift has been so violent that the stock round-tripped from $80 to $345 and back to $119 in roughly 36 months — precisely the kind of sentiment dislocation that creates asymmetric opportunities for investors who understand what they actually own.</p>
-    <p>The 10-year total return of +363% meaningfully beats the S&P 500's +230%, but lags Microsoft's +750% and even SAP's +380%. That spread tells a precise story: Oracle executed well enough to beat the market, but it took until 2023–2024 to prove it could compete in the category that commands premium multiples — cloud infrastructure. For most of 2015–2022, ORCL was a "high-quality value trap": excellent and growing cash flows, aggressive buybacks reducing share count by 28%, steady margin expansion — but no growth re-rating because the market didn't believe the cloud thesis.</p>
-    <p>The Cerner acquisition in June 2022 ($28.4B) was the structural pivot. Initially punished — EBITDA fell from $18.6B to $13.7B in one year — it validated Oracle's willingness to make a bet large enough to reshape its identity. Cerner gave Oracle healthcare cloud credibility and the regulated-data positioning that now underpins its sovereign cloud pitch to governments and financial services firms globally. The AI infrastructure thesis of 2023–2024 was partly enabled by that painful bet.</p>
-    <p>Where Oracle stands today: $67B in guided FY2026 revenue, $553B in RPO (up 325% year-over-year), $50B capex commitment, $38.5B in cash, and a stock trading −52% from its all-time high. That specific setup — strong fundamentals, compressed valuation, maximum sentiment uncertainty — is historically where the best entries in quality compounders occur.</p>
-  </div>
-
-  <!-- SCOREBOARD -->
-  <div class="tc" id="tc-score">
-    <p>The 10-year cumulative return of +363% vs. the S&P 500's +230% represents a +133 percentage-point outperformance — real alpha, though substantially lower than many assume for a marquee tech name. The problem is in the composition: ORCL's 10-year number is almost entirely explained by the 2020–2024 re-rating. Strip out those years and Oracle spent most of 2015–2019 barely keeping pace with a plain index fund.</p>
-    <p>The MSFT comparison is damning over 10 years (+363% vs. +750%), but the two stocks tell fundamentally different stories about cloud transition timing. Nadella's pivot was 2014; Oracle's genuine cloud acceleration didn't arrive until Cerner closed and AI demand emerged. If you weight the comparison to the 5-year period (when Oracle's cloud credibility was established), the gap compresses dramatically — ORCL +146% vs. MSFT +94%. Oracle actually outperformed Microsoft over 5 years. That's the data point most investors miss because they anchor on the 10-year chart.</p>
-    <p>The SAP comparison is arguably the most instructive. SAP's 5-year and 3-year numbers (+270% and +200%) dwarf Oracle's, but SAP completed its RISE cloud transition 3–4 years earlier than Oracle. SAP is the road Oracle is currently building. The divergence isn't a signal that Oracle is inferior — it's a signal that Oracle's transition is 3 years behind SAP's on the same playbook, which means Oracle's best returns may still be ahead.</p>
-    <p>The most important "scoreboard" data point is not on any returns table: it's the RPO trajectory. Going from $65B to $553B in signed contracts within roughly 12 months is without historical precedent in enterprise software. If even a fraction of that converts at the pace management guides, the current stock price will look radically cheap in three years.</p>
-  </div>
-
-  <!-- REGIME -->
-  <div class="tc" id="tc-regime">
-    <h3>Regime 1 — The Legacy Skeptic Discount (2015–2019)</h3>
-    <p>For five years, Oracle was the tech stock sophisticated investors apologized for owning. Ellison's combative cloud launch — arguing that AWS was "too slow and too expensive" — was received as Kodak claiming Instagram was inferior to film. The stock lagged the S&P in 2015 (−13pp) and 2016 (−6pp), and even in good years like 2017 (+25%) and 2019 (+19%), MSFT's relentless Azure-driven gains (+37% and +58% respectively) made Oracle look like a second-tier software company. Revenue was essentially flat in absolute terms from FY2016 to FY2021 ($37B to $40.5B) — the growth story was entirely in per-share metrics driven by buybacks, not top-line acceleration. The market correctly identified that Oracle had the cash flows of a great business but the growth rate of a mediocre one.</p>
-
-    <h3>Regime 2 — Pandemic Vindication + Pre-Cerner Optimism (2020–2021)</h3>
-    <p>COVID broke the pattern. Oracle's on-premise infrastructure turned into a structural advantage as enterprises scrambled for stable data environments. The company gained +24% in 2020 and +37% in 2021, outperforming the S&P in both years. The Autonomous Database began posting measurable enterprise adoption. The Cerner announcement in December 2021 was the first signal that management was willing to make a bet large enough to change Oracle's identity entirely — and the market initially rewarded the ambition.</p>
-
-    <h3>Regime 3 — Cerner Digestion + AI Awakening (2022–2023)</h3>
-    <p>Cerner closed in June 2022 ($28.4B) and crushed EBITDA margins from 46% to 32% in a single fiscal year. Yet Oracle fell only −5% in 2022 while the S&P fell −18% and MSFT fell −28%. That defensive outperformance — 13pp above the S&P during a severe growth-stock drawdown — is the most underappreciated data point in Oracle's history. When rates rose and growth stocks got punished, Oracle's stable cash flows and reasonable valuation provided genuine shelter. Then AI arrived. By 2023, every hyperscaler needed GPU infrastructure; OCI's sovereign cloud positioning and NVIDIA partnership made it a credible alternative. RPO began its parabolic ascent. The stock gained +31% in 2023.</p>
-
-    <h3>Regime 4 — Manic to Hangover (2024–2025)</h3>
-    <p>2024 was Oracle's best calendar year since the dot-com era (+60%), as the AI infrastructure story hit escape velocity. Contracts with Microsoft, Google, and Amazon to run Oracle's multicloud database alongside massive new OCI commitments drove RPO from under $100B to over $400B. The stock peaked at $345.72 on September 10, 2025. Then the reckoning: $50B capex guidance in a rising-rate environment, free cash flow turning sharply negative, and a market questioning whether a legacy software company could actually execute infrastructure at hyperscaler scale. By April 2025, the stock had declined −65% from the peak. Tonight's Q3 FY2026 beat — 22% organic revenue growth and RPO at $553B — is the first credible evidence that execution is matching the ambition.</p>
-  </div>
-
-  <!-- RISK/RETURN -->
-  <div class="tc" id="tc-risk">
-    <p>Oracle's risk/return profile has fundamentally changed over the last 24 months, and most investors haven't updated their mental model. For most of the 2015–2022 period, Oracle was a defensive compounder: beta around 0.8, high FCF yield, modest growth, predictable buyback cadence. That Oracle no longer exists. The current beta of 1.65 means Oracle now moves roughly 65% more than the market — closer in behavior to a semiconductor equipment company than the enterprise application business it appeared to be as recently as 2022.</p>
-    <p>The business model analogy that makes this concrete: Oracle spent 40 years as the <em>toll booth on corporate data</em>. Every enterprise's critical information flowed through Oracle's database, and Oracle collected a small, reliable toll. That business has near-perfect switching costs, minimal capex, and margins that compound quietly. Now Oracle is trying to <em>build the highway itself</em> — constructing massive cloud data centers to compete with AWS, Azure, and GCP. Highway construction is capital-intensive, operationally complex, and eventually commodity-priced at scale. The toll booth finances the highway construction, but the terminal value depends entirely on whether Oracle's highway attracts enough traffic to justify its construction cost over the three much-larger highways already in operation.</p>
-    <p>Beta expansion from 0.8 to 1.65 is the market pricing this transition risk in real time. You are no longer being compensated for database stability and predictable cash flows; you are now accepting infrastructure construction risk at scale, against better-capitalized competitors, on a leveraged balance sheet. The D/E of 4.33× quantifies the management team's conviction — they have levered the corporate balance sheet heavily on their own bet. If traffic (OCI workloads) materializes at the pace RPO implies, the leverage amplifies returns dramatically upward. If it doesn't, the toll booth revenue alone may not comfortably service the debt.</p>
-    <p>The asymmetry that makes this interesting: the downside scenario — overleveraged infrastructure builder competing against AWS/Azure in a commoditizing market — is already substantially priced into a stock that is down 52% from its all-time high. The upside scenario — database moat + sovereign/regulated cloud winning regulated-sector AI at scale — is barely priced at all at 17× EBITDA. That is the actual risk/return contract at $164.</p>
-  </div>
-
-  <!-- FUNDAMENTALS vs SENTIMENT -->
-  <div class="tc" id="tc-fsent">
-    <h3>What the Numbers Actually Show</h3>
-    <p>Revenue per share grew from $9.25 (FY2016) to $20.07 (FY2025) — a genuine 2.2× improvement over nine fiscal years. The critical nuance: roughly half of that improvement came from the 28% reduction in diluted share count (4.0B → 2.86B), not from top-line acceleration. Total revenue grew from $37B to $57.4B over the same period — a 55% cumulative increase, or about 5% annually. That's a steady compounder, not a hypergrowth business. Oracle's EPS outperformance of revenue growth throughout the 2016–2022 period was primarily a financial engineering story: aggressive buybacks amplifying per-share metrics while absolute revenue growth was modest. The EBITDA trajectory is cleaner: $14.8B in FY2016 to $24.1B in FY2025 — genuine margin expansion and profit growth even before the AI acceleration.</p>
-
-    <h3>The Multiple Expansion Story</h3>
-    <p>EV/EBITDA moved from approximately 9× (FY2016) to an implied 35–40× at the September 2025 peak — a ~4× multiple expansion that accounts for most of the stock's alpha over the S&P. At $164 today, EV/EBITDA has reset to approximately 17× on trailing EBITDA, which is above the 10-year historical median of 13–15× but defensible if FY2027 revenue reaches $90B as guided. The forward EV/EBITDA at that revenue level and today's price is closer to 12–13×. That's the mathematical case for the bull thesis: you're paying median multiples for a company about to deliver above-median growth.</p>
-
-    <h3>What's NOT Being Said</h3>
-    <p>The prominent bull narrative features $553B RPO as a near-certainty. What gets systematically buried: <strong>Oracle's free cash flow has turned sharply negative relative to operating cash flow.</strong> In Q2 FY2026, operating cash flow was $20.3B but FCF was $9.5B — a $10.8B delta that is pure capex burn. FY2026 guidance calls for $50B in total capex, which means this gap will widen significantly in subsequent quarters. Oracle has $38.5B in cash — but it is spending at a rate that will consume that buffer within 12–18 months absent new financing. The company has already raised $30B in planned financing; further debt issuance at current rates compounds the interest burden on an already-leveraged balance sheet.</p>
-    <p>The second hidden assumption: the $553B RPO is presented as broadly diversified contracted revenue. The disclosure that "most of the Q3 increase related to large scale AI contracts" suggests significant customer concentration in a small number of very large sovereign/government/hyperscaler agreements. Framework agreements — where Oracle commits to provide capacity and customers commit to purchase up to specified amounts — are legally different from purchase orders. The distinction matters enormously for timing of revenue recognition and default risk.</p>
-
-    <h3>Steel Man + Devil's Advocate</h3>
-    <p><strong>Steel Man (Strongest Bull Case):</strong> Oracle is the only enterprise technology company with a credible end-to-end stack for regulated-sector AI: database (the world's most trusted), applications (Fusion ERP/HCM/SCM + Oracle Health), and sovereign cloud infrastructure (OCI). The U.S. government, EU member states, global healthcare systems, and financial services firms cannot operate sensitive AI workloads on AWS (political concentration risk), Azure (Microsoft conflict of interest in enterprise apps), or GCP (Google's data monetization DNA). Oracle is the sovereign cloud by structural default for these use cases. The $553B RPO reflects this inevitability, not hype. At 22× forward earnings on 20%+ organic growth with the cheapest entry point in three years, Oracle is the most mispriced quality AI infrastructure play available.</p>
-    <p><strong>Devil's Advocate (Stress Test):</strong> Oracle changed its RPO disclosure methodology as the number began exploding — a pattern that historically warrants scrutiny. If 30–40% of the $553B carries material conditionality or multi-year optionality that won't convert to revenue within the analyst horizon, the "real" backlog is closer to $330–390B. More structurally: Oracle's EBITDA margin peaked at 46% in FY2021 and has structurally compressed to 42% as the infrastructure mix grows. Hardware-heavy cloud infrastructure runs at 35–40% EBITDA margin, not the 50%+ of pure software licensing. As OCI becomes a larger revenue share, Oracle's blended margin will compress further — and a business whose margins are declining should carry a lower multiple, not a higher one. The current multiple embeds a growth premium that requires not just revenue growth, but margin stability, free cash flow recovery, and execution on the world's most ambitious corporate infrastructure buildout simultaneously.</p>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-  <p>This report is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. Data sourced from Oracle Corporation SEC filings, Oracle investor relations (Q3 FY2026 press release, March 10, 2026), financecharts.com, stockanalysis.com, gurufocus.com, and stock-analysis-on.net. Historical data involves estimates; some figures may vary from final filed amounts. EV/EBITDA and indexed performance are approximations based on available public data. Forward estimates reflect Oracle management guidance as of March 10, 2026 and are subject to change.</p>
-  <p style="margin-top:6px;color:#333">Prepared by The Fedeli Group Investment Research · March 11, 2026 · Post Q3 FY2026 Earnings Release</p>
-</div>
-
-</div><!-- /wrap -->
 
 <script>
-// ─── DATA ────────────────────────────────────────────────────────────────────
-const fyLbls = ['FY16','FY17','FY18','FY19','FY20','FY21','FY22','FY23','FY24','FY25','FY26E'];
-const rps    = [9.25,10.05,11.37,11.97,13.03,14.57,15.70,18.18,19.20,20.07,23.35];
-const eveb   = [9.0,10.0,11.5,12.0,13.0,15.0,21.0,19.0,22.0,25.0,17.0];
-const median = 15.0;
+const labels = ['FY2021','FY2022','FY2023','FY2024','FY2025','FY2026 (E)','FY2027 (E)'];
 
-const yrLbls  = ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'];
-const ORCLi   = [88,  93, 116, 113, 135, 167, 229, 218, 285, 456, 538];
-const SPi     = [101, 113, 138, 132, 174, 206, 265, 217, 274, 342, 421];
-const MSFTi   = [123, 141, 194, 235, 370, 528, 806, 581, 919,1038,1028];
-const SAPi    = [106, 109, 133, 117, 145, 136, 121, 131, 181, 299, 464];
+// GAAP EPS — actual years filled, estimate years null for first dataset
+const epsActual  = [4.30, 2.36, 1.84, 3.62, 3.87, null, null];
+// Estimates: overlap at FY2025 for visual continuity
+const epsEst     = [null, null, null, null, 3.87, 4.50, 5.25];
 
-const GOLD='#AD9551', CYAN='#22d3ee', RED='#ef4444', GREEN='#22c55e', SLATE='#64748b';
+// Relative P/E — actual vs estimate
+const relPEAct   = [0.84, 2.62, 2.60, 1.59, 1.70, null, null];
+const relPEEst   = [null, null, null, null, 1.70, 0.95, 0.90];
 
-// ─── CHART ───────────────────────────────────────────────────────────────────
-let chart = null;
-
-function buildMain(){
-  return{
-    type:'bar',
-    data:{
-      labels:fyLbls,
-      datasets:[
-        {label:'Revenue / Share ($)',data:rps,backgroundColor:CYAN+'bb',borderColor:CYAN,borderWidth:1,yAxisID:'yL',order:2},
-        {label:'EV/EBITDA (×)',data:eveb,backgroundColor:GOLD+'bb',borderColor:GOLD,borderWidth:1,yAxisID:'yR',order:1},
-        {type:'line',label:'10Y Median EV/EBITDA (15×)',data:fyLbls.map(()=>median),borderColor:RED,borderWidth:2,borderDash:[5,4],pointRadius:0,yAxisID:'yR',fill:false,order:0}
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{labels:{color:'#bbb',font:{size:11},boxWidth:14}},
-        tooltip:{backgroundColor:'#1c1c1c',borderColor:'#2a2a2a',borderWidth:1,titleColor:GOLD,bodyColor:'#ccc'}
+const ctx = document.getElementById('bxChart').getContext('2d');
+new Chart(ctx, {
+  data: {
+    labels,
+    datasets: [
+      {
+        type: 'bar', label: 'EPS — GAAP ($)',
+        data: epsActual, backgroundColor: '#1a1a2e',
+        yAxisID: 'y', order: 2
       },
-      scales:{
-        x:{ticks:{color:'#777'},grid:{color:'#1e1e1e'}},
-        yL:{position:'left',ticks:{color:CYAN,callback:v=>'$'+v},grid:{color:'#1e1e1e'},title:{display:true,text:'Revenue / Share ($)',color:CYAN,font:{size:10}}},
-        yR:{position:'right',ticks:{color:GOLD,callback:v=>v+'×'},grid:{drawOnChartArea:false},title:{display:true,text:'EV/EBITDA (×)',color:GOLD,font:{size:10}}}
-      }
-    }
-  };
-}
-
-function buildPerf(){
-  return{
-    type:'line',
-    data:{
-      labels:yrLbls,
-      datasets:[
-        {label:'ORCL',data:ORCLi,borderColor:GOLD,backgroundColor:'transparent',borderWidth:2.5,pointRadius:4,tension:0.3},
-        {label:'S&P 500',data:SPi,borderColor:SLATE,backgroundColor:'transparent',borderWidth:1.5,pointRadius:2,tension:0.3},
-        {label:'MSFT',data:MSFTi,borderColor:CYAN,backgroundColor:'transparent',borderWidth:2,pointRadius:2,tension:0.3},
-        {label:'SAP',data:SAPi,borderColor:GREEN,backgroundColor:'transparent',borderWidth:2,pointRadius:2,tension:0.3}
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{labels:{color:'#bbb',font:{size:11},boxWidth:14}},
-        tooltip:{backgroundColor:'#1c1c1c',borderColor:'#2a2a2a',borderWidth:1,titleColor:GOLD,bodyColor:'#ccc',
-          callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw} (base 100 = Jan 2015)`}}
+      {
+        type: 'bar', label: 'EPS (E)',
+        data: epsEst, backgroundColor: '#7f8fa6',
+        yAxisID: 'y', order: 2
       },
-      scales:{
-        x:{ticks:{color:'#777'},grid:{color:'#1e1e1e'}},
-        y:{ticks:{color:'#888'},grid:{color:'#1e1e1e'},title:{display:true,text:'Indexed Total Return (Base = 100)',color:'#666',font:{size:10}}}
+      {
+        type: 'line', label: 'Relative P/E',
+        data: relPEAct, borderColor: '#c0392b', backgroundColor: 'transparent',
+        borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#c0392b',
+        yAxisID: 'y2', order: 1, tension: 0.1
+      },
+      {
+        type: 'line', label: 'Relative P/E (E)',
+        data: relPEEst, borderColor: '#c0392b', backgroundColor: 'transparent',
+        borderWidth: 2, borderDash: [5,5], pointRadius: 4,
+        pointBackgroundColor: '#c0392b', pointBorderDash: [],
+        yAxisID: 'y2', order: 1, tension: 0.1
       }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { font: { size: 11 }, boxWidth: 14, padding: 12 }
+      },
+      tooltip: { mode: 'index', intersect: false }
+    },
+    scales: {
+      y: {
+        title: { display: true, text: 'EPS ($)', font: { size: 11 } },
+        beginAtZero: true,
+        grid: { color: '#e8e8e8' },
+        ticks: { font: { size: 11 } }
+      },
+      y2: {
+        position: 'right',
+        title: { display: true, text: 'Relative P/E', font: { size: 11 } },
+        beginAtZero: true,
+        grid: { display: false },
+        ticks: { font: { size: 11 } }
+      },
+      x: { ticks: { font: { size: 11 } } }
     }
-  };
-}
-
-function swapChart(type, btn){
-  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  if(chart){chart.destroy();chart=null;}
-  const canvas = document.getElementById('mc');
-  chart = new Chart(canvas.getContext('2d'), type==='main'?buildMain():buildPerf());
-}
-
-chart = new Chart(document.getElementById('mc').getContext('2d'), buildMain());
-
-// ─── TABS ─────────────────────────────────────────────────────────────────────
-function swapTab(id, btn){
-  document.querySelectorAll('.tc').forEach(el=>el.classList.remove('on'));
-  document.querySelectorAll('.tnav').forEach(el=>el.classList.remove('on'));
-  document.getElementById('tc-'+id).classList.add('on');
-  btn.classList.add('on');
-}
+  }
+});
 </script>
+
 </body>
 </html>
